@@ -1,0 +1,47 @@
+experiment:
+  prompt_templates:
+    - zero_shot
+    - few_shot
+  default_runs: 1
+  max_attempts: 3
+  empty_communication_value: ""
+  analysis_extensions:
+    - .csv
+    - .json
+    - .txt
+    - .md
+  prompt_limits:
+    requirements_rows: 80
+    static_rows: 20
+    max_section_chars: 18000
+    text_preview_chars: 2000
+  log_level: INFO
+
+providers:
+  openai:
+    enabled: true
+    api_key_env: OPENAI_API_KEY
+    base_url:
+    models:
+      - name: gpt-5.5-2026-04-23
+        temperature: null
+        max_tokens: 3500
+        timeout_seconds: 500
+  anthropic:
+    enabled: true
+    api_key_env: ANTHROPIC_API_KEY
+    base_url:
+    models:
+      - name: claude-opus-4-8
+        temperature: null
+        max_tokens: 3500
+        timeout_seconds: 500
+  deepseek:
+    enabled: true
+    api_key_env: DEEPSEEK_API_KEY
+    base_url: https://api.deepseek.com/v1
+    models:
+      - name: deepseek-chat
+        temperature: 0.2
+        max_tokens: 3500
+        timeout_seconds: 500
