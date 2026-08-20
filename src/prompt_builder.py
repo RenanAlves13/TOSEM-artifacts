@@ -29,6 +29,9 @@ You will receive two types of evidence:
 
 Use the requirements to understand the system's functional responsibilities and domain concepts.
 Use the static analysis results to understand code structure, dependencies, modules, entities, and coupling.
+Treat packages, build modules, and technical layers as evidence, not as pre-defined microservice boundaries.
+Do not assume that the number of modules or packages should equal the number of microservices.
+Group or split code only when the business responsibilities and structural evidence support that decision.
 
 Your goal is to propose a microservice architecture that maximizes functional cohesion and minimizes unnecessary coupling.
 
@@ -49,20 +52,26 @@ Consider:
 Return only valid JSON following this schema:
 """ + JSON_SCHEMA_SNIPPET
 
-FEW_SHOT_EXAMPLE = """Example (generic and independent from the real system):
+FEW_SHOT_EXAMPLES = """Examples (generic and independent from the real system):
 
-Example requirements:
+These examples show that packages and build modules are structural clues, not a one-to-one list of microservices.
+
+Example 1 — online store: several technical packages, four business services
+
+Requirements:
 - [REQ-01] Users can create and update customer profiles.
 - [REQ-02] Users can browse a product catalog and search items.
 - [REQ-03] Users can place orders and track order status.
 - [REQ-04] Payments must be authorized and recorded.
 
-Example static analysis evidence:
-- Packages: customer, catalog, ordering, payment.
+Static analysis evidence:
+- Packages: web, application, persistence, common, customer, catalog, ordering, payment.
+- The web, application, persistence, and common packages are technical layers shared by the customer, catalog, and ordering code.
 - Internal dependencies: ordering depends on customer and catalog; payment depends on ordering.
 - Entry points: CustomerController, CatalogController, OrderController, PaymentController.
+- There are eight packages, but the technical-layer packages are not business-service candidates.
 
-Example valid answer:
+Valid answer:
 {
   "microservices": [
     {
@@ -87,6 +96,70 @@ Example valid answer:
     }
   ]
 }
+
+Example 2 — appointment scheduling: two build modules, three business services
+
+Requirements:
+- [REQ-01] Patients maintain contact information and search for available professionals.
+- [REQ-02] Patients can book, confirm, and cancel appointments.
+- [REQ-03] Patients receive a reminder when an appointment is confirmed.
+
+Static analysis evidence:
+- Build modules: clinic-web and clinic-core.
+- clinic-web contains PatientController, ProfessionalController, AppointmentController, and ReminderController.
+- clinic-core contains profile, availability, appointment, and reminder classes.
+- Appointment classes depend on profile and availability classes; reminder classes consume confirmed appointment events.
+- clinic-core is one build module but contains multiple cohesive business capabilities.
+
+Valid answer:
+{
+  "microservices": [
+    {
+      "microservice_name": "Care Directory Service",
+      "responsibility": "Manages patient contact information, professional profiles, and professional availability.",
+      "communicates_with": ["Appointment Service"]
+    },
+    {
+      "microservice_name": "Appointment Service",
+      "responsibility": "Handles appointment booking, confirmation, cancellation, and appointment lifecycle events.",
+      "communicates_with": ["Care Directory Service", "Notification Service"]
+    },
+    {
+      "microservice_name": "Notification Service",
+      "responsibility": "Sends appointment confirmation and reminder notifications.",
+      "communicates_with": ["Appointment Service"]
+    }
+  ]
+}
+
+Example 3 — parcel delivery: six technical packages, two cohesive services
+
+Requirements:
+- [REQ-01] Customers create delivery requests and provide pickup and destination addresses.
+- [REQ-02] Operators assign parcels to routes and update delivery progress.
+- [REQ-03] Customers track a parcel until delivery is completed.
+
+Static analysis evidence:
+- Packages: api.customer, api.delivery, application.delivery, domain.delivery, persistence, shared.
+- Delivery request, route assignment, and tracking event classes share one parcel lifecycle and a single transaction boundary.
+- The customer API depends on delivery application services; the delivery API exposes requests, route assignments, and tracking updates.
+- There are six packages, most of them technical layers around one delivery-domain aggregate.
+
+Valid answer:
+{
+  "microservices": [
+    {
+      "microservice_name": "Customer Service",
+      "responsibility": "Manages customer identity and delivery address information.",
+      "communicates_with": ["Delivery Operations Service"]
+    },
+    {
+      "microservice_name": "Delivery Operations Service",
+      "responsibility": "Manages delivery requests, parcel lifecycle, route assignment, and delivery tracking as one cohesive operation.",
+      "communicates_with": ["Customer Service"]
+    }
+  ]
+}
 """
 
 
@@ -104,13 +177,17 @@ def build_prompt(
     template_name: str,
     limits: PromptLimits,
 ) -> PromptPayload:
-    requirements_content = build_requirements_context(requirements, limits)
-    static_analysis_content = build_static_analysis_context(static_analysis, limits)
+    evidence = build_evidence_context(
+        project_name=project_name,
+        requirements=requirements,
+        static_analysis=static_analysis,
+        limits=limits,
+    )
 
     if template_name == "zero_shot":
         prefix = ""
     elif template_name == "few_shot":
-        prefix = FEW_SHOT_EXAMPLE + "\n"
+        prefix = FEW_SHOT_EXAMPLES + "\n"
     else:
         raise ValueError(
             f"Unsupported prompt template '{template_name}'. "
@@ -119,20 +196,34 @@ def build_prompt(
 
     user_prompt = (
         f"{prefix}"
-        f"Project name: {project_name}\n\n"
         "Analyze the evidence below and produce one final microservice proposal.\n"
         "Make conservative decisions when evidence is weak.\n"
         "Avoid hallucinating unsupported services, generic umbrella services, and nanoservices.\n"
         "Return only JSON, without markdown fences, comments, or prose.\n\n"
-        "System requirements:\n"
-        f"{requirements_content}\n\n"
-        "Static analysis evidence:\n"
-        f"{static_analysis_content}\n"
+        f"{evidence}\n"
     )
     return PromptPayload(
         template_name=template_name,
         system_prompt=BASE_SYSTEM_PROMPT,
         user_prompt=user_prompt,
+    )
+
+
+def build_evidence_context(
+    *,
+    project_name: str,
+    requirements: RequirementsData,
+    static_analysis: StaticAnalysisData,
+    limits: PromptLimits,
+) -> str:
+    requirements_content = build_requirements_context(requirements, limits)
+    static_analysis_content = build_static_analysis_context(static_analysis, limits)
+    return (
+        f"Project name: {project_name}\n\n"
+        "System requirements:\n"
+        f"{requirements_content}\n\n"
+        "Static analysis evidence:\n"
+        f"{static_analysis_content}"
     )
 
 

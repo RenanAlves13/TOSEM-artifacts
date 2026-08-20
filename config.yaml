@@ -1,4 +1,7 @@
 experiment:
+  # Keep direct as the safe default. Pass --approach agent to use the structured workflow.
+  approaches:
+    - direct
   prompt_templates:
     - zero_shot
     - few_shot
@@ -15,6 +18,8 @@ experiment:
     static_rows: 20
     max_section_chars: 18000
     text_preview_chars: 2000
+  agent:
+    max_refinement_rounds: 2
   log_level: INFO
 
 providers:

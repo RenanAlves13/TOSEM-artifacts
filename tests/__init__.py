@@ -1,1 +1,1 @@
-"""Tests for the microservice decomposition project."""
+"""Test package for standard unittest discovery."""

@@ -1,0 +1,3 @@
+[server]
+# The dashboard is intended for use on the same machine as the repository.
+address = "localhost"

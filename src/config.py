@@ -31,8 +31,13 @@ class PromptLimits(BaseModel):
     text_preview_chars: int = 2000
 
 
+class AgentConfig(BaseModel):
+    max_refinement_rounds: int = Field(default=2, ge=1, le=10)
+
+
 class ExperimentConfig(BaseModel):
     prompt_templates: list[str] = Field(default_factory=lambda: ["zero_shot", "few_shot"])
+    approaches: list[str] = Field(default_factory=lambda: ["direct"])
     default_runs: int = 1
     max_attempts: int = 3
     empty_communication_value: str = ""
@@ -40,6 +45,7 @@ class ExperimentConfig(BaseModel):
         default_factory=lambda: [".csv", ".json", ".txt", ".md"]
     )
     prompt_limits: PromptLimits = Field(default_factory=PromptLimits)
+    agent: AgentConfig = Field(default_factory=AgentConfig)
     log_level: str = "INFO"
 
 

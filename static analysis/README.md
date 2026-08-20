@@ -20,6 +20,11 @@ Esta pasta agora contem um runner de analise estatica baseado em codigo-fonte:
 python "static analysis\analyze_systems.py"
 ```
 
+Também é possível executar o mesmo processo pela interface local: abra **Projetos e
+análise estática**, expanda **Atualizar a análise estática dos oito projetos**, confirme
+a ação e clique em **Executar análise estática**. Essa operação não chama um LLM e
+sobrescreve os artefatos em `analysis-results/static-analysis/`.
+
 ## Artefatos gerados por projeto
 
 - `summary.json`
@@ -28,6 +33,9 @@ python "static analysis\analyze_systems.py"
 - `package_dependencies.csv`
 - `package_metrics.csv`
 - `entrypoints.csv`
+
+O campo de arquivos de build representa `pom.xml` e `build.gradle` detectados. Ele é
+uma indicação de módulos de build, não uma contagem garantida de módulos de negócio.
 
 ## Artefatos consolidados
 
@@ -38,3 +46,6 @@ python "static analysis\analyze_systems.py"
 ## Observacao
 
 O ambiente atual nao possui `java` nem `maven` no `PATH`. Por isso a metodologia adotada aqui faz analise estatica offline pelo codigo-fonte e pela estrutura de build, sem depender de compilacao local dos 8 sistemas.
+
+As dependências internas são inferidas de declarações `import`; portanto, descrevem
+relações estáticas de código e não chamadas, tráfego ou comportamento de runtime.
