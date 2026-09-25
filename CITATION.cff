@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this replication package, please cite it."
+type: software
+title: "Microservice Decomposition Pipeline"
+version: v1.0.0
+date-released: 2026-09-25
+license: Apache-2.0
+repository-code: "https://github.com/RenanAlves13/TOSEM-artifacts"
+
+authors:
+  - family-names: Alves
+    given-names: Renan
+    orcid: "https://orcid.org/0009-0003-9114-0606
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
+
+  - family-names: Souza
+    given-names: Ademar
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
+
+  - family-names: Souza
+    given-names: Ademar
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
+
+  - family-names: Dantas Filho
+    given-names: Emanuel
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
+
+  - family-names: Albuquerque
+    given-names: Danyllo
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
+
+  - family-names: Perkusich
+    given-names: Mirko
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
+
+  - family-names: Gorgônio
+    given-names: Kyller
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
+
+  - family-names: Perkusich
+    given-names: Angelo
+    affiliation: "VIRTUS/UFCG, Federal University of Campina Grande"
