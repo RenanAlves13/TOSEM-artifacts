@@ -194,6 +194,16 @@ Esse arquivo registra:
 - status
 - erro, se houver
 
+### Artefatos da replicação
+
+A versão de replicação deve incluir os requisitos, os artefatos congelados de
+análise estática em `analysis-results/static-analysis/`, as arquiteturas de
+referência em `ground true/` e os CSVs, prompts e traces em `outputs/`. Esses
+arquivos permitem recalcular as métricas e inspecionar as chamadas que sustentam os
+resultados reportados, sem uma nova chamada a um provedor de LLM. Os relatórios em
+`comparison_outputs/` são derivados e podem ser regenerados pelo comando de
+comparação.
+
 ## Observações
 
 - As chaves de API não ficam hardcoded no código.

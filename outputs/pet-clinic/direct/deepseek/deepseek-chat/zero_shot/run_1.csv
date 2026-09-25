@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+owner-service,"Manage owner (tutor) registration, search, and detailed view, including owner data validation and pagination.",visit-service;pet-service
+pet-service,"Manage pet registration and updates, enforce pet naming and birth date rules, and maintain pet types.",owner-service;visit-service
+visit-service,"Record and manage visits for pets, maintain visit history, and handle visit assignment to veterinarians.",pet-service;vet-service
+vet-service,"Manage veterinarian information, list veterinarians with specialties, and provide structured data for external consumption.",visit-service

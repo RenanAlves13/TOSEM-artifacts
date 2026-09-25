@@ -1,0 +1,45 @@
+\begin{table}[t]
+\centering
+\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Direct-generation trace metric & n & Median & Min & Max \\
+\midrule
+Trace available (1=yes) & 48 & 1.0 & 1.0 & 1.0 \\
+Trace events & 48 & 4.0 & 4.0 & 4.0 \\
+Invalid trace JSON lines & 48 & 0.0 & 0.0 & 0.0 \\
+LLM calls & 48 & 1.0 & 1.0 & 1.0 \\
+Successful LLM calls & 48 & 1.0 & 1.0 & 1.0 \\
+Failed LLM calls & 48 & 0.0 & 0.0 & 0.0 \\
+Failed-call ratio & 48 & 0.00 & 0.00 & 0.00 \\
+API errors & 48 & 0.0 & 0.0 & 0.0 \\
+Parse errors & 48 & 0.0 & 0.0 & 0.0 \\
+Retry calls & 48 & 0.0 & 0.0 & 0.0 \\
+Retry-call ratio & 48 & 0.00 & 0.00 & 0.00 \\
+Total LLM call duration (ms) & 48 & 8,617.00 & 1,937.00 & 41,937.00 \\
+Mean LLM call duration (ms) & 48 & 8,617.00 & 1,937.00 & 41,937.00 \\
+Maximum LLM call duration (ms) & 48 & 8,617.00 & 1,937.00 & 41,937.00 \\
+Trace elapsed time (ms) & 48 & 8,623.6 & 1,937.6 & 41,949.2 \\
+System-prompt characters & 48 & 1,768.0 & 1,768.0 & 1,768.0 \\
+User-prompt characters & 48 & 18,265.0 & 10,990.0 & 27,723.0 \\
+Response characters & 48 & 1,456.5 & 653.0 & 6,800.0 \\
+Distinct workflow roles & 48 & 1.0 & 1.0 & 1.0 \\
+Critic rounds & 48 & 0.0 & 0.0 & 0.0 \\
+Revision requests & 48 & 0.0 & 0.0 & 0.0 \\
+Critic issues & 48 & 0.0 & 0.0 & 0.0 \\
+Refinement rounds & 48 & 0.0 & 0.0 & 0.0 \\
+Workflow converged (1=yes) & 48 & 0.0 & 0.0 & 0.0 \\
+Stopped by iteration limit (1=yes) & 48 & 0.00 & 0.00 & 0.00 \\
+Services added during refinement & 48 & 0.0 & 0.0 & 0.0 \\
+Services removed during refinement & 48 & 0.0 & 0.0 & 0.0 \\
+Interactions added during refinement & 48 & 0.0 & 0.0 & 0.0 \\
+Interactions removed during refinement & 48 & 0.0 & 0.0 & 0.0 \\
+Final-snapshot service count & 48 & 4.0 & 2.0 & 14.0 \\
+Final-snapshot communication count & 48 & 9.0 & 2.0 & 52.0 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Supplementary trace-metric summary across all successful direct-generation runs.}
+\label{tab:s2-direct-process-metrics}
+\end{table}

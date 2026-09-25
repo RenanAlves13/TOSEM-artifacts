@@ -1,2 +1,0 @@
-@AnnotationPackage
-package dummyPackage;

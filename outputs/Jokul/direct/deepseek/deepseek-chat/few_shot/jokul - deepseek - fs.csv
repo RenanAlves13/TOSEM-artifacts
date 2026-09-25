@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+User Service,"Manages user registration, authentication, session identification, and role-based access control for common users and administrators.",Catalog Service
+Catalog Service,"Manages movie catalog data, including movie details, categories, pagination, and search, and enforces uniqueness of movie titles.",User Service;Media Service
+Media Service,"Handles video file upload, storage, retrieval, and availability for playback and download, ensuring files are ready for consumption.",Catalog Service

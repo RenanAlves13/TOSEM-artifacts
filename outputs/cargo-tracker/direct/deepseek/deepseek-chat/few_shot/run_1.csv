@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+Shipment Service,"Manages shipment registration, tracking identifier assignment, origin/destination/deadline rules, and shipment lifecycle status.",Routing Service;Handling Service;Monitoring Service
+Routing Service,"Handles route planning, candidate route selection, route assignment, and replanning when destinations change or deviations occur.",Shipment Service;Handling Service
+Handling Service,"Records logistics events (receipt, loading, unloading, customs, pickup), validates event data, and updates shipment operational status.",Shipment Service;Routing Service;Monitoring Service
+Monitoring Service,"Provides shipment lookup by tracking ID, current status, last known location, estimated arrival, event history, and deviation flags for tracking and operational views.",Shipment Service;Handling Service

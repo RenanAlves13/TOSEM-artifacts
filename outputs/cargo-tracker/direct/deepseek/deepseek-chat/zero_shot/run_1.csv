@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+Shipment Management,"Register and manage shipments, handle routing decisions, replanning, and provide shipment administrative views and tracking information.",Routing Service;Handling Event Service;Location Service
+Routing Service,"Query and select candidate routes based on shipment origin, destination, and deadline; provide route legs and support replanning.",Shipment Management;Location Service
+Handling Event Service,"Record logistics events (receipt, loading, unloading, customs, pickup), validate event data, update shipment status, and maintain event history.",Shipment Management;Location Service
+Location Service,"Manage logistics locations (origin, destination, event locations) and provide location data for shipment registration, routing, and event recording.",Shipment Management;Routing Service;Handling Event Service

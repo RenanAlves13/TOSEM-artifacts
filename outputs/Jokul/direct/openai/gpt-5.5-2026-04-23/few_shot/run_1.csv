@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+Identity and Access Service,"Manages user registration, login, logout/session identity, user uniqueness, and role-based access information for regular users and administrators.",Movie Catalog Service;Media Storage and Playback Service
+Movie Catalog Service,"Manages movie metadata, catalog browsing, pagination, movie details, categories, category-based discovery, administrator catalog registration, duplicate-title prevention, and movie deletion.",Identity and Access Service;Media Storage and Playback Service
+Media Storage and Playback Service,"Handles movie video upload, MP4 file availability checks, loading files from the configured local repository into the delivery area, and providing playback or download access to available movie files.",Identity and Access Service;Movie Catalog Service

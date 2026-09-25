@@ -48,6 +48,7 @@ from src.prompt_builder import (
     build_prompt,
 )
 from src.prompt_writer import render_prompt_text
+from src.static_analysis_loader import static_analysis_totals
 from src.ui.data import (
     MAX_DOWNLOAD_BYTES,
     TRACE_PREVIEW_MAX_BYTES,
@@ -299,6 +300,18 @@ def inject_style() -> None:
           .static-build-metric__value {
             color: #2558d9; font-size: 2.25rem; font-weight: 700; line-height: 1.2;
           }
+          .st-key-static_project_totals,
+          .st-key-static_project_totals * {
+            color: #000000 !important;
+          }
+          .st-key-static_project_totals .static-total-group-heading,
+          .st-key-static_project_totals .static-total-group-heading * {
+            color: #2558d9 !important;
+          }
+          .static-total-group-heading {
+            font-weight: 700;
+            margin: .85rem 0 .4rem;
+          }
         </style>
         """,
         unsafe_allow_html=True,
@@ -333,9 +346,12 @@ def render_table(
     title: str | None = None,
     download_name: str | None = None,
     max_rows: int | None = None,
+    total_count: int | None = None,
+    total_label: str = "registros",
 ) -> pd.DataFrame:
     """Render a searchable table and offer the currently visible rows as CSV."""
     frame = dataframe_from(rows)
+    source_count = len(frame) if total_count is None else total_count
     if title:
         st.subheader(title)
     if frame.empty:
@@ -349,6 +365,12 @@ def render_table(
         label_visibility="collapsed",
     )
     visible = filter_frame(frame, search)
+    filtered_count = len(visible)
+    if total_count is not None or total_label != "registros":
+        st.caption(
+            f"Total: {source_count:,} {total_label}. "
+            f"Após o filtro: {filtered_count:,} registros."
+        )
     if max_rows is not None and len(visible) > max_rows:
         st.caption(f"Exibindo as primeiras {max_rows} de {len(visible)} linhas filtradas.")
         visible = visible.head(max_rows)
@@ -503,7 +525,7 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
         return
     static = snapshot.static_analysis
     summary = static.summary or {}
-    counts = summary.get("counts", {}) if isinstance(summary, dict) else {}
+    totals = static_analysis_totals(static)
     metadata_columns = st.columns(6)
     for column, (label, field, help_text) in zip(
         metadata_columns,
@@ -516,19 +538,22 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
             ("Arestas externas", "external_package_dependencies", "Dependências externas inferidas por imports; não são chamadas de runtime."),
         ),
     ):
-        value = numeric_value(counts.get(field, 0))
+        value = totals.get(field)
+        display_value = value if value is not None else "—"
         if field == "build_files":
             column.markdown(
                 (
                     '<div class="static-build-metric">'
                     f'<div class="static-build-metric__label">{label}</div>'
-                    f'<div class="static-build-metric__value">{value}</div>'
+                    f'<div class="static-build-metric__value">{display_value}</div>'
                     "</div>"
                 ),
                 unsafe_allow_html=True,
             )
         else:
-            column.metric(label, value, help=help_text)
+            column.metric(label, display_value, help=help_text)
+
+    render_static_project_totals(totals, requirements_count=snapshot.requirements.row_count)
 
     methodology = summary.get("methodology", {}) if isinstance(summary, dict) else {}
     notes = methodology.get("notes", []) if isinstance(methodology, dict) else []
@@ -549,7 +574,7 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
         ]
     )
     with tabs[0]:
-        render_static_summary(static)
+        render_static_summary(static, totals)
     with tabs[1]:
         st.caption(f"Arquivo detectado: `{snapshot.requirements.file_path.relative_to(paths.root).as_posix()}`")
         render_table(
@@ -557,6 +582,8 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
             key=f"requirements_{snapshot.context.name}",
             title=f"Requisitos ({snapshot.requirements.row_count})",
             download_name=f"{snapshot.context.name}_requirements.csv",
+            total_count=snapshot.requirements.row_count,
+            total_label="requisitos",
         )
     with tabs[2]:
         render_table(
@@ -564,17 +591,21 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
             key=f"modules_{snapshot.context.name}",
             title="Módulos e arquivos de build",
             download_name=f"{snapshot.context.name}_modules.csv",
+            total_count=totals.get("build_files"),
+            total_label="arquivos de build / módulos detectados",
         )
     with tabs[3]:
-        render_package_metrics(static.package_metrics, snapshot.context.name)
+        render_package_metrics(static.package_metrics, snapshot.context.name, totals)
     with tabs[4]:
-        render_dependencies(static.package_dependencies, snapshot.context.name)
+        render_dependencies(static.package_dependencies, snapshot.context.name, totals)
     with tabs[5]:
         render_table(
             static.entrypoints,
             key=f"entrypoints_{snapshot.context.name}",
             title="Entrypoints detectados heuristicamente",
             download_name=f"{snapshot.context.name}_entrypoints.csv",
+            total_count=totals.get("entrypoints"),
+            total_label="entrypoints",
         )
     with tabs[6]:
         render_table(
@@ -583,6 +614,8 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
             title="Classes e papéis inferidos",
             download_name=f"{snapshot.context.name}_classes.csv",
             max_rows=1_000,
+            total_count=totals.get("classes"),
+            total_label="classes / tipos analisados",
         )
     with tabs[7]:
         reference_files = ground_truth_files(paths, snapshot.context.name)
@@ -595,10 +628,13 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
             )
             for reference in reference_files:
                 with st.expander(reference.name, expanded=True):
+                    reference_rows = read_csv_rows(reference)
                     render_table(
-                        read_csv_rows(reference),
+                        reference_rows,
                         key=f"ground_truth_{snapshot.context.name}_{reference.stem}",
                         download_name=reference.name,
+                        total_count=len(reference_rows),
+                        total_label="registros de referência",
                     )
     with tabs[8]:
         if not static.extras:
@@ -610,11 +646,17 @@ def render_static_analysis(paths: WorkspacePaths, config, projects) -> None:
                         artifact.content,
                         key=f"extra_{snapshot.context.name}_{artifact.path.stem}",
                         download_name=artifact.path.name,
+                        total_count=artifact.row_count,
+                        total_label="registros",
                     )
                 elif isinstance(artifact.content, dict):
+                    st.caption(f"Total: {artifact.row_count:,} campos no objeto JSON.")
                     st.json(artifact.content)
                 else:
                     text = str(artifact.content)
+                    st.caption(
+                        f"Total: {artifact.row_count:,} linhas e {len(text):,} caracteres."
+                    )
                     if len(text) > 50_000:
                         st.warning("A prévia foi truncada em 50.000 caracteres.")
                         text = text[:50_000] + "\n\n[preview truncated]"
@@ -670,7 +712,138 @@ def render_static_analysis_runner(paths: WorkspacePaths) -> None:
                 st.error(str(exc))
 
 
-def render_static_summary(static) -> None:
+def render_static_project_totals(
+    totals: dict[str, int | None], *, requirements_count: int
+) -> None:
+    """Show every reliable project-level total without treating unknown values as zero."""
+
+    groups = (
+        (
+            "Arquivos e evidências",
+            (
+                ("Requisitos", requirements_count, "Linhas não vazias do CSV de requisitos."),
+                ("Arquivos de build", totals.get("build_files"), "pom.xml e build.gradle detectados."),
+                (
+                    "Submódulos declarados",
+                    totals.get("declared_submodules"),
+                    "Submódulos declarados em arquivos de build; Gradle pode não os declarar dessa forma.",
+                ),
+                ("Raízes de fonte", totals.get("source_roots"), "Diretórios Java identificados."),
+                (
+                    "Arquivos Java",
+                    totals.get("java_files"),
+                    "Inclui package-info.java e module-info.java quando existirem.",
+                ),
+                (
+                    "Tipos analisados",
+                    totals.get("analyzed_type_files"),
+                    "Arquivos Java analisados como classe, interface, enum, record ou anotação.",
+                ),
+                (
+                    "Descritores Java",
+                    totals.get("java_descriptor_files"),
+                    "Arquivos package-info.java ou module-info.java não contabilizados como tipo analisado.",
+                ),
+            ),
+        ),
+        (
+            "Código",
+            (
+                ("Classes/tipos", totals.get("classes"), "Tipos Java analisados."),
+                ("Classes main", totals.get("main_classes"), "Tipos do conjunto de fontes main."),
+                ("Classes de teste", totals.get("test_classes"), "Tipos do conjunto de testes."),
+                ("Classes de UI test", totals.get("ui_test_classes"), "Tipos do conjunto de testes de interface."),
+                ("Métodos", totals.get("methods"), "Métodos e construtores inferidos heuristicamente."),
+                (
+                    "Métodos públicos",
+                    totals.get("public_methods"),
+                    "Métodos inferidos com modificador public.",
+                ),
+                ("Linhas de fonte", totals.get("source_lines"), "Linhas em tipos Java analisados."),
+                (
+                    "Linhas efetivas",
+                    totals.get("effective_source_lines"),
+                    "Linhas não vazias após a remoção de comentários.",
+                ),
+            ),
+        ),
+        (
+            "Estrutura",
+            (
+                ("Pacotes", totals.get("packages"), "Pacotes de código-fonte detectados."),
+                (
+                    "Raízes de pacote",
+                    totals.get("package_roots"),
+                    "Agrupamentos dos três primeiros segmentos do pacote; o resumo lista no máximo dez.",
+                ),
+                ("Papéis inferidos", totals.get("inferred_roles"), "Categorias de papel identificadas."),
+                ("Tipos de declaração", totals.get("type_kinds"), "Class, interface, enum, record ou anotação."),
+                (
+                    "Entrypoints",
+                    totals.get("entrypoints"),
+                    "Entrypoints inferidos heuristicamente; não são confirmação de execução em runtime.",
+                ),
+            ),
+        ),
+        (
+            "Imports e dependências",
+            (
+                ("Imports", totals.get("imports"), "Declarações import encontradas nos tipos analisados."),
+                ("Imports internos", totals.get("internal_imports"), "Imports classificados como internos."),
+                ("Imports externos", totals.get("external_imports"), "Imports classificados como externos."),
+                (
+                    "Arestas entre pacotes",
+                    totals.get("package_dependency_edges"),
+                    "Pares distintos origem → destino inferidos por imports.",
+                ),
+                (
+                    "Arestas internas",
+                    totals.get("internal_package_dependencies"),
+                    "Arestas distintas entre pacotes internos; não são chamadas de runtime.",
+                ),
+                (
+                    "Arestas externas",
+                    totals.get("external_package_dependencies"),
+                    "Arestas distintas para pacotes externos; não são chamadas de runtime.",
+                ),
+                (
+                    "Ocorrências internas",
+                    totals.get("internal_package_dependency_occurrences"),
+                    "Soma dos pesos das arestas internas entre pacotes.",
+                ),
+                (
+                    "Ocorrências externas",
+                    totals.get("external_package_dependency_occurrences"),
+                    "Soma dos pesos das arestas externas entre pacotes.",
+                ),
+                (
+                    "Raízes externas",
+                    totals.get("external_dependency_roots"),
+                    "Raízes de dependências externas; o resumo lista no máximo vinte.",
+                ),
+            ),
+        ),
+    )
+
+    with st.container(border=True, key="static_project_totals"):
+        st.subheader("Totais detalhados do projeto")
+        st.caption("Os totais são calculados pelos artefatos disponíveis. Campos sem base confiável não são exibidos.")
+        for group_name, metrics in groups:
+            available_metrics = [metric for metric in metrics if metric[1] is not None]
+            if not available_metrics:
+                continue
+            st.markdown(
+                f'<p class="static-total-group-heading">{escape(group_name)}</p>',
+                unsafe_allow_html=True,
+            )
+            for start in range(0, len(available_metrics), 4):
+                row = available_metrics[start : start + 4]
+                columns = st.columns(len(row))
+                for column, (label, value, help_text) in zip(columns, row):
+                    column.metric(label, f"{value:,}", help=help_text)
+
+
+def render_static_summary(static, totals: dict[str, int | None]) -> None:
     summary = static.summary or {}
     left, right = st.columns((1, 1.25))
     with left:
@@ -680,6 +853,7 @@ def render_static_summary(static) -> None:
                 "project": summary.get("project", ""),
                 "generated_at_utc": summary.get("generated_at_utc", ""),
                 "build_tools": summary.get("build_tools", []),
+                "counts": summary.get("counts", {}),
                 "source_roots": summary.get("source_roots", []),
                 "package_roots": summary.get("package_roots", []),
             }
@@ -691,6 +865,10 @@ def render_static_summary(static) -> None:
             role_frame = dataframe_from(
                 {"papel": role, "classes": count} for role, count in roles.items()
             ).sort_values("classes", ascending=False)
+            st.caption(
+                f"Total: {sum(numeric_value(count) for count in roles.values()):,} classes/tipos "
+                f"em {len(role_frame):,} papéis."
+            )
             st.bar_chart(role_frame.set_index("papel"), height=240)
         else:
             st.info("A análise não forneceu distribuição de papéis.")
@@ -702,6 +880,8 @@ def render_static_summary(static) -> None:
             key="summary_internal_dependencies",
             title="Principais dependências internas",
             download_name="top_internal_dependencies.csv",
+            total_count=totals.get("internal_package_dependencies"),
+            total_label="arestas internas de dependência",
         )
     top_external = summary.get("top_external_dependency_roots", []) if isinstance(summary, dict) else []
     if top_external:
@@ -709,6 +889,13 @@ def render_static_summary(static) -> None:
         external_frame = dataframe_from(top_external)
         if {"dependency_root", "count"}.issubset(external_frame.columns):
             external_frame["count"] = pd.to_numeric(external_frame["count"], errors="coerce").fillna(0)
+            occurrences = totals.get("external_package_dependency_occurrences")
+            root_count = totals.get("external_dependency_roots")
+            if occurrences is not None and root_count is not None:
+                st.caption(
+                    f"Exibindo até 20 de {root_count:,} raízes externas; "
+                    f"{occurrences:,} ocorrências de import externo entre pacotes."
+                )
             st.bar_chart(
                 external_frame.sort_values("count", ascending=False)
                 .head(20)
@@ -717,7 +904,9 @@ def render_static_summary(static) -> None:
             )
 
 
-def render_package_metrics(rows: list[dict[str, str]], project_name: str) -> None:
+def render_package_metrics(
+    rows: list[dict[str, str]], project_name: str, totals: dict[str, int | None]
+) -> None:
     if not rows:
         st.info("Não há métricas de pacotes neste artefato.")
         return
@@ -774,10 +963,14 @@ def render_package_metrics(rows: list[dict[str, str]], project_name: str) -> Non
         key=f"package_metrics_{project_name}",
         title="Métricas por pacote",
         download_name=f"{project_name}_package_metrics.csv",
+        total_count=totals.get("packages"),
+        total_label="pacotes",
     )
 
 
-def render_dependencies(rows: list[dict[str, str]], project_name: str) -> None:
+def render_dependencies(
+    rows: list[dict[str, str]], project_name: str, totals: dict[str, int | None]
+) -> None:
     if not rows:
         st.info("Não há dependências de pacote neste artefato.")
         return
@@ -796,9 +989,14 @@ def render_dependencies(rows: list[dict[str, str]], project_name: str) -> None:
         and numeric_value(row.get("count", 0)) >= min_count
     ]
     filtered.sort(key=lambda row: (-numeric_value(row.get("count", 0)), row.get("source_package", "")))
+    filtered_weight = sum(numeric_value(row.get("count", 0)) for row in filtered)
+    total_weight = sum(numeric_value(row.get("count", 0)) for row in rows)
+    total_edges = totals.get("package_dependency_edges")
     st.caption(
-        f"{len(filtered)} arestas satisfazem o filtro. As arestas são inferidas por imports; "
-        "o peso representa ocorrências de import, não chamadas em runtime."
+        f"Total do projeto: {(total_edges if total_edges is not None else len(rows)):,} arestas "
+        f"com peso {total_weight:,}. Após o filtro: {len(filtered):,} arestas com peso "
+        f"{filtered_weight:,}. As arestas são inferidas por imports; o peso representa "
+        "ocorrências de import, não chamadas em runtime."
     )
     if category in {"internal", "all"}:
         internal = [row for row in filtered if row.get("category") == "internal"][:40]
@@ -814,6 +1012,8 @@ def render_dependencies(rows: list[dict[str, str]], project_name: str) -> None:
         title="Arestas de dependência",
         download_name=f"{project_name}_package_dependencies.csv",
         max_rows=1_000,
+        total_count=total_edges,
+        total_label="arestas de dependência",
     )
 
 

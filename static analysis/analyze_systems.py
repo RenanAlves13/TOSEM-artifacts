@@ -14,6 +14,38 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SYSTEMS_DIR = REPO_ROOT / "systems"
 OUTPUT_ROOT = REPO_ROOT / "analysis-results" / "static-analysis"
 
+SUMMARY_COUNT_FIELDS = (
+    "build_files",
+    "declared_submodules",
+    "modules_with_parse_errors",
+    "source_roots",
+    "java_files",
+    "java_descriptor_files",
+    "analyzed_type_files",
+    "packages",
+    "package_roots",
+    "classes",
+    "entrypoints",
+    "main_classes",
+    "test_classes",
+    "ui_test_classes",
+    "methods",
+    "public_methods",
+    "source_lines",
+    "effective_source_lines",
+    "imports",
+    "internal_imports",
+    "external_imports",
+    "internal_package_dependencies",
+    "external_package_dependencies",
+    "package_dependency_edges",
+    "internal_package_dependency_occurrences",
+    "external_package_dependency_occurrences",
+    "external_dependency_roots",
+    "inferred_roles",
+    "type_kinds",
+)
+
 IGNORED_DIR_NAMES = {
     ".git",
     ".github",
@@ -613,6 +645,14 @@ def analyze_project(project_root: Path) -> dict[str, Any]:
     ui_test_classes = sum(1 for row in class_rows if row["source_set"] == "ui-test")
     internal_dependency_edges = [row for row in dependency_rows if row["category"] == "internal"]
     external_dependency_edges = [row for row in dependency_rows if row["category"] == "external"]
+    type_kind_counter = Counter(row["type_kind"] for row in class_rows)
+    declared_submodules = sum(len(module["declared_submodules"]) for module in modules)
+    modules_with_parse_errors = sum(1 for module in modules if module.get("parse_error"))
+    internal_dependency_occurrences = sum(row["count"] for row in internal_dependency_edges)
+    external_dependency_occurrences = sum(row["count"] for row in external_dependency_edges)
+    total_imports = sum(row["import_count"] for row in class_rows)
+    total_internal_imports = sum(row["internal_import_count"] for row in class_rows)
+    total_external_imports = sum(row["external_import_count"] for row in class_rows)
 
     package_roots = Counter()
     for package_name in known_packages:
@@ -635,19 +675,37 @@ def analyze_project(project_root: Path) -> dict[str, Any]:
         "build_tools": sorted({module["build_tool"] for module in modules}),
         "counts": {
             "build_files": len(modules),
+            "declared_submodules": declared_submodules,
+            "modules_with_parse_errors": modules_with_parse_errors,
             "source_roots": len(source_roots),
             "java_files": len(java_files),
+            "java_descriptor_files": len(java_files) - len(class_rows),
             "analyzed_type_files": len(class_rows),
             "packages": len(known_packages),
+            "package_roots": len(package_roots),
             "classes": len(class_rows),
             "entrypoints": len(entrypoints),
             "main_classes": main_classes,
             "test_classes": test_classes,
             "ui_test_classes": ui_test_classes,
+            "methods": sum(row["method_count"] for row in class_rows),
+            "public_methods": sum(row["public_method_count"] for row in class_rows),
+            "source_lines": sum(row["line_count"] for row in class_rows),
+            "effective_source_lines": sum(row["effective_line_count"] for row in class_rows),
+            "imports": total_imports,
+            "internal_imports": total_internal_imports,
+            "external_imports": total_external_imports,
             "internal_package_dependencies": len(internal_dependency_edges),
             "external_package_dependencies": len(external_dependency_edges),
+            "package_dependency_edges": len(dependency_rows),
+            "internal_package_dependency_occurrences": internal_dependency_occurrences,
+            "external_package_dependency_occurrences": external_dependency_occurrences,
+            "external_dependency_roots": len(external_roots),
+            "inferred_roles": len(role_counter),
+            "type_kinds": len(type_kind_counter),
         },
         "role_counts": dict(sorted(role_counter.items())),
+        "type_kind_counts": dict(sorted(type_kind_counter.items())),
         "source_roots": sorted(source_roots),
         "package_roots": [
             {"package_root": package_root, "package_count": count}
@@ -796,18 +854,7 @@ def write_index(all_projects: list[dict[str, Any]]) -> None:
                 "project": summary["project"],
                 "project_path": summary["project_path"],
                 "build_tools": "|".join(summary["build_tools"]),
-                "build_files": counts["build_files"],
-                "source_roots": counts["source_roots"],
-                "java_files": counts["java_files"],
-                "analyzed_type_files": counts["analyzed_type_files"],
-                "packages": counts["packages"],
-                "classes": counts["classes"],
-                "entrypoints": counts["entrypoints"],
-                "main_classes": counts["main_classes"],
-                "test_classes": counts["test_classes"],
-                "ui_test_classes": counts["ui_test_classes"],
-                "internal_package_dependencies": counts["internal_package_dependencies"],
-                "external_package_dependencies": counts["external_package_dependencies"],
+                **{field: counts.get(field, 0) for field in SUMMARY_COUNT_FIELDS},
             }
         )
 
@@ -827,18 +874,7 @@ def write_index(all_projects: list[dict[str, Any]]) -> None:
             "project",
             "project_path",
             "build_tools",
-            "build_files",
-            "source_roots",
-            "java_files",
-            "analyzed_type_files",
-            "packages",
-            "classes",
-            "entrypoints",
-            "main_classes",
-            "test_classes",
-            "ui_test_classes",
-            "internal_package_dependencies",
-            "external_package_dependencies",
+            *SUMMARY_COUNT_FIELDS,
         ],
     )
     write_json(

@@ -1,0 +1,340 @@
+{
+  "requirements": [
+    {
+      "identifier": "RF - 0",
+      "category": "Shipment Registration and Initiation",
+      "description": "The system shall allow a new shipment to be registered by providing its origin, destination, and delivery deadline."
+    },
+    {
+      "identifier": "RF - 02",
+      "category": "Shipment Registration and Initiation",
+      "description": "Each registered shipment shall receive a unique tracking identifier."
+    },
+    {
+      "identifier": "RF - 03",
+      "category": "Shipment Registration and Initiation",
+      "description": "The shipment origin and destination shall be different."
+    },
+    {
+      "identifier": "RF - 04",
+      "category": "Shipment Registration and Initiation",
+      "description": "The shipment origin shall remain fixed throughout the logistics lifecycle."
+    },
+    {
+      "identifier": "RF - 05",
+      "category": "Shipment Registration and Initiation",
+      "description": "Shipment registration may be completed even before a route is defined."
+    },
+    {
+      "identifier": "RF - 06",
+      "category": "Shipment Registration and Initiation",
+      "description": "The delivery deadline shall be mandatory and shall serve as a criterion for trip planning."
+    },
+    {
+      "identifier": "RF - 07",
+      "category": "Shipment Registration and Initiation",
+      "description": "The system shall allow the origin and destination to be selected only from previously registered logistics locations."
+    },
+    {
+      "identifier": "RF - 08",
+      "category": "Planning and Routing",
+      "description": "The system shall query and present candidate routes compatible with the shipment's needs."
+    },
+    {
+      "identifier": "RF - 09",
+      "category": "Planning and Routing",
+      "description": "A candidate route shall be considered valid only when it satisfies the shipment's origin, final destination, and delivery deadline."
+    },
+    {
+      "identifier": "RF - 10",
+      "category": "Planning and Routing",
+      "description": "The user shall be able to choose one of the presented routes and associate it with the shipment."
+    },
+    {
+      "identifier": "RF - 11",
+      "category": "Planning and Routing",
+      "description": "When a shipment does not yet have a defined route, it shall be identified as \"unrouted\"."
+    },
+    {
+      "identifier": "RF - 12",
+      "category": "Planning and Routing",
+      "description": "When no route meets the specified criteria, the system shall inform the user that no feasible option exists for the current specification."
+    },
+    {
+      "identifier": "RF - 13",
+      "category": "Planning and Routing",
+      "description": "The system shall display the legs of the selected route, including loading and unloading points, trips, and planned dates."
+    },
+    {
+      "identifier": "RF - 14",
+      "category": "Trip Replanning",
+      "description": "The system shall allow the destination of an existing shipment to be changed."
+    },
+    {
+      "identifier": "RF - 15",
+      "category": "Trip Replanning",
+      "description": "The new destination shall be neither the shipment's origin nor its current destination."
+    },
+    {
+      "identifier": "RF - 16",
+      "category": "Trip Replanning",
+      "description": "When the destination is changed, the system shall reassess the shipment's current route."
+    },
+    {
+      "identifier": "RF - 17",
+      "category": "Trip Replanning",
+      "description": "When the current route no longer serves the new destination, the shipment shall require a new routing decision."
+    },
+    {
+      "identifier": "RF - 18",
+      "category": "Trip Replanning",
+      "description": "The system shall allow routes to be replanned for shipments that have deviated from the planned route or whose destination has changed."
+    },
+    {
+      "identifier": "RF - 19",
+      "category": "Monitoring and Tracking",
+      "description": "The system shall allow a shipment to be looked up by its tracking identifier."
+    },
+    {
+      "identifier": "RF - 20",
+      "category": "Monitoring and Tracking",
+      "description": "When a shipment is looked up, the system shall present its current status."
+    },
+    {
+      "identifier": "RF - 21",
+      "category": "Monitoring and Tracking",
+      "description": "The system shall provide the shipment's last known location."
+    },
+    {
+      "identifier": "RF - 22",
+      "category": "Monitoring and Tracking",
+      "description": "The system shall provide the estimated arrival time when the shipment has a valid route and is progressing in accordance with the plan."
+    },
+    {
+      "identifier": "RF - 23",
+      "category": "Monitoring and Tracking",
+      "description": "The system shall retain and display the history of logistics events associated with the shipment."
+    },
+    {
+      "identifier": "RF - 24",
+      "category": "Monitoring and Tracking",
+      "description": "The history shall distinguish expected events from events that occurred outside the plan."
+    },
+    {
+      "identifier": "RF - 25",
+      "category": "Monitoring and Tracking",
+      "description": "The system shall flag when a shipment has deviated from its expected route."
+    },
+    {
+      "identifier": "RF - 26",
+      "category": "Monitoring and Tracking",
+      "description": "The system shall allow the shipment to be viewed with geographic support, highlighting its origin, final destination, and last known location."
+    },
+    {
+      "identifier": "RF - 27",
+      "category": "Operational Shipment Management",
+      "description": "The system shall provide a consolidated administrative view of shipments."
+    },
+    {
+      "identifier": "RF - 28",
+      "category": "Operational Shipment Management",
+      "description": "Shipments shall be grouped, at a minimum, into the categories \"unrouted\", \"routed and in transit\", and \"collected by the recipient\"."
+    },
+    {
+      "identifier": "RF - 29",
+      "category": "Operational Shipment Management",
+      "description": "The system shall allow the details of any shipment to be opened from the administrative view."
+    },
+    {
+      "identifier": "RF - 30",
+      "category": "Operational Shipment Management",
+      "description": "Routed shipments that have not yet been collected shall be trackable as shipments in transit."
+    },
+    {
+      "identifier": "RF - 31",
+      "category": "Logistics Event Recording",
+      "description": "The system shall allow logistics events of the following types to be recorded: receipt, loading, unloading, customs clearance, and pickup."
+    },
+    {
+      "identifier": "RF - 32",
+      "category": "Logistics Event Recording",
+      "description": "Every logistics event shall be associated with an existing shipment."
+    },
+    {
+      "identifier": "RF - 33",
+      "category": "Logistics Event Recording",
+      "description": "Every logistics event shall specify the location where it occurred and the date of occurrence."
+    },
+    {
+      "identifier": "RF - 34",
+      "category": "Logistics Event Recording",
+      "description": "Loading and unloading events shall be associated with the corresponding trip."
+    },
+    {
+      "identifier": "RF - 35",
+      "category": "Logistics Event Recording",
+      "description": "Events other than loading or unloading shall not require a trip identifier."
+    },
+    {
+      "identifier": "RF - 36",
+      "category": "Logistics Event Recording",
+      "description": "The system shall reject attempts to record an event with a non-existent shipment, location, or trip."
+    },
+    {
+      "identifier": "RF - 37",
+      "category": "Logistics Event Recording",
+      "description": "Recording a valid event shall update the shipment's operational status."
+    },
+    {
+      "identifier": "RF - 38",
+      "category": "Logistics Event Recording",
+      "description": "After each valid event, the system shall recalculate information such as transport status, known location, expected next step, and adherence to the plan."
+    },
+    {
+      "identifier": "RF - 39",
+      "category": "Logistics Event Recording",
+      "description": "When an event indicates execution that differs from the planned route, the shipment shall be marked as off route."
+    },
+    {
+      "identifier": "RF - 40",
+      "category": "Logistics Event Recording",
+      "description": "When a shipment is unloaded at its final destination, the system shall mark it as having arrived at the destination."
+    },
+    {
+      "identifier": "RF - 41",
+      "category": "Logistics Event Recording",
+      "description": "When pickup by the recipient is recorded, the shipment shall be considered complete from a logistics perspective."
+    },
+    {
+      "identifier": "RF - 42",
+      "category": "Operation and Monitoring Channels",
+      "description": "The system shall allow logistics events to be recorded through more than one operational channel."
+    },
+    {
+      "identifier": "RF - 43",
+      "category": "Operation and Monitoring Channels",
+      "description": "The supported channels shall include, at a minimum, an operational interface, an integration service, and input-file processing."
+    },
+    {
+      "identifier": "RF - 44",
+      "category": "Operation and Monitoring Channels",
+      "description": "The system shall provide a consolidated view of shipments for use by monitoring channels."
+    },
+    {
+      "identifier": "RF - 45",
+      "category": "Operation and Monitoring Channels",
+      "description": "The system shall keep monitoring channels aligned with the most recent status of each shipment."
+    },
+    {
+      "identifier": "RNF - 46",
+      "category": "Business Integrity and Consistency",
+      "description": "The system shall preserve consistency among shipment registration, the planned route, and completed events."
+    },
+    {
+      "identifier": "RNF - 47",
+      "category": "Business Integrity and Consistency",
+      "description": "No invalid event may alter the shipment's state."
+    },
+    {
+      "identifier": "RNF - 48",
+      "category": "Business Integrity and Consistency",
+      "description": "Rules concerning origin, destination, deadline, and route compatibility shall be applied uniformly across all operational channels."
+    },
+    {
+      "identifier": "RNF - 49",
+      "category": "Business Integrity and Consistency",
+      "description": "The shipment's status shall be recalculated whenever there is a relevant change in planning or execution."
+    },
+    {
+      "identifier": "RNF - 50",
+      "category": "Traceability and Operational Auditing",
+      "description": "The system shall maintain sufficient history to reconstruct the shipment's logistics lifecycle."
+    },
+    {
+      "identifier": "RNF - 51",
+      "category": "Traceability and Operational Auditing",
+      "description": "Each event shall retain, at a minimum, the time at which it occurred and the time at which it was recorded in the system."
+    },
+    {
+      "identifier": "RNF - 52",
+      "category": "Traceability and Operational Auditing",
+      "description": "Rejected recording attempts shall be identifiable for subsequent operational analysis."
+    },
+    {
+      "identifier": "RNF - 53",
+      "category": "Traceability and Operational Auditing",
+      "description": "The system shall allow correctly delivered shipments, shipments still in transit, and shipments with operational deviations to be distinguished."
+    },
+    {
+      "identifier": "RNF - 54",
+      "category": "Updates and Timeliness",
+      "description": "Shipment status updates shall occur in time to support operational monitoring."
+    },
+    {
+      "identifier": "RNF - 55",
+      "category": "Updates and Timeliness",
+      "description": "Event intake shall continue even when detailed status recalculation occurs in the background."
+    },
+    {
+      "identifier": "RNF - 56",
+      "category": "Updates and Timeliness",
+      "description": "Inputs received through files shall be processed periodically without requiring constant manual triggering."
+    },
+    {
+      "identifier": "RNF - 57",
+      "category": "Updates and Timeliness",
+      "description": "Monitoring channels shall reflect the most recent available information about the shipment."
+    },
+    {
+      "identifier": "RNF - 58",
+      "category": "Operational Usability",
+      "description": "Information presented to users shall be organized by business status rather than solely by technical structure."
+    },
+    {
+      "identifier": "RNF - 59",
+      "category": "Operational Usability",
+      "description": "Operational navigation shall facilitate frequent tasks such as locating a shipment, viewing details, selecting a route, and recording an event."
+    },
+    {
+      "identifier": "RNF - 60",
+      "category": "Operational Usability",
+      "description": "The system shall reduce operational errors through controlled lists of locations, trips, event types, and shipment identifiers."
+    },
+    {
+      "identifier": "RNF - 61",
+      "category": "Operational Usability",
+      "description": "Error messages and no-route messages shall be understandable for administrative and logistics use."
+    },
+    {
+      "identifier": "RNF - 62",
+      "category": "Processing Resilience",
+      "description": "A failure in an isolated recording attempt shall not compromise the processing of other shipments."
+    },
+    {
+      "identifier": "RNF - 63",
+      "category": "Processing Resilience",
+      "description": "Records received in an invalid format shall be separated for later handling without interrupting the remainder of the workload."
+    },
+    {
+      "identifier": "RNF - 64",
+      "category": "Processing Resilience",
+      "description": "The system shall treat off-route shipments as visible operational exceptions to enable prompt corrective action."
+    },
+    {
+      "identifier": "RNF - 65",
+      "category": "Cross-Channel Interoperability",
+      "description": "The system shall maintain consistency among the data shown in the administrative interface, tracking, mobile channels, and integrations."
+    },
+    {
+      "identifier": "RNF - 66",
+      "category": "Cross-Channel Interoperability",
+      "description": "The shipment's primary information shall be exchangeable in standardized formats to facilitate integration with other systems."
+    },
+    {
+      "identifier": "RNF - 67",
+      "category": "Cross-Channel Interoperability",
+      "description": "The tracking model shall be unique regardless of the channel used to record or look up the shipment."
+    }
+  ],
+  "complete": true
+}

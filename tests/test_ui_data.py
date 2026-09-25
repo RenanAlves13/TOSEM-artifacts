@@ -7,6 +7,7 @@ import unittest
 import csv
 from pathlib import Path
 
+from src.static_analysis_loader import StaticAnalysisData, load_csv_rows, static_analysis_totals
 from src.ui.data import (
     build_generation_command,
     build_static_analysis_command,
@@ -226,6 +227,79 @@ class UiDataTests(unittest.TestCase):
             rows = read_csv_rows(csv_path)
 
             self.assertEqual(rows[0]["responsibility"], "first line\nsecond line")
+
+    def test_static_analysis_loader_preserves_newlines_inside_quoted_cells(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            csv_path = Path(temporary_directory) / "classes.csv"
+            csv_path.write_text(
+                'type_name,annotations\nExample,"first line\nsecond line"\n',
+                encoding="utf-8",
+            )
+
+            rows = load_csv_rows(csv_path)
+
+            self.assertEqual(rows[0]["annotations"], "first line\nsecond line")
+
+    def test_static_analysis_totals_derive_values_from_loaded_artifacts(self) -> None:
+        data = StaticAnalysisData(
+            root_dir=Path("analysis-results/demo"),
+            files=[],
+            summary={"counts": {"source_roots": 2, "java_files": 3}},
+            modules=[
+                {"declared_submodules": "api|web", "parse_error": ""},
+                {"declared_submodules": "", "parse_error": "invalid XML"},
+            ],
+            package_metrics=[{"package": "demo.api"}, {"package": "demo.web"}],
+            package_dependencies=[
+                {"category": "internal", "count": "4"},
+                {"category": "external", "count": "7"},
+            ],
+            entrypoints=[{"type_name": "Application"}],
+            classes=[
+                {
+                    "source_set": "main",
+                    "type_kind": "class",
+                    "role": "controller",
+                    "method_count": "0",
+                    "public_method_count": "0",
+                    "line_count": "12",
+                    "effective_line_count": "8",
+                    "import_count": "3",
+                    "internal_import_count": "1",
+                    "external_import_count": "2",
+                },
+                {
+                    "source_set": "test",
+                    "type_kind": "interface",
+                    "role": "test",
+                    "method_count": "2",
+                    "public_method_count": "2",
+                    "line_count": "20",
+                    "effective_line_count": "16",
+                    "import_count": "5",
+                    "internal_import_count": "0",
+                    "external_import_count": "5",
+                },
+            ],
+        )
+
+        totals = static_analysis_totals(data)
+
+        self.assertEqual(totals["build_files"], 2)
+        self.assertEqual(totals["declared_submodules"], 2)
+        self.assertEqual(totals["modules_with_parse_errors"], 1)
+        self.assertEqual(totals["classes"], 2)
+        self.assertEqual(totals["methods"], 2)
+        self.assertEqual(totals["public_methods"], 2)
+        self.assertEqual(totals["source_lines"], 32)
+        self.assertEqual(totals["effective_source_lines"], 24)
+        self.assertEqual(totals["internal_imports"], 1)
+        self.assertEqual(totals["external_imports"], 7)
+        self.assertEqual(totals["package_dependency_edges"], 2)
+        self.assertEqual(totals["internal_package_dependency_occurrences"], 4)
+        self.assertEqual(totals["external_package_dependency_occurrences"], 7)
+        self.assertEqual(totals["inferred_roles"], 2)
+        self.assertEqual(totals["type_kinds"], 2)
 
     def test_jsonl_reader_keeps_valid_events_when_a_line_is_invalid(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

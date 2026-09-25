@@ -1,7 +1,7 @@
 {
   "project": "daytrader7",
   "project_path": "systems/daytrader7",
-  "generated_at_utc": "2026-06-25T17:58:12.901985+00:00",
+  "generated_at_utc": "2026-08-25T23:25:20.811656+00:00",
   "methodology": {
     "type": "source-static-analysis",
     "notes": [
@@ -14,21 +14,43 @@
   ],
   "counts": {
     "build_files": 4,
+    "declared_submodules": 3,
+    "modules_with_parse_errors": 0,
     "source_roots": 2,
     "java_files": 108,
+    "java_descriptor_files": 0,
     "analyzed_type_files": 108,
     "packages": 11,
+    "package_roots": 1,
     "classes": 108,
     "entrypoints": 45,
     "main_classes": 108,
     "test_classes": 0,
     "ui_test_classes": 0,
+    "methods": 1011,
+    "public_methods": 929,
+    "source_lines": 18294,
+    "effective_source_lines": 10443,
+    "imports": 1102,
+    "internal_imports": 235,
+    "external_imports": 867,
     "internal_package_dependencies": 41,
-    "external_package_dependencies": 113
+    "external_package_dependencies": 113,
+    "package_dependency_edges": 154,
+    "internal_package_dependency_occurrences": 232,
+    "external_package_dependency_occurrences": 867,
+    "external_dependency_roots": 26,
+    "inferred_roles": 2,
+    "type_kinds": 3
   },
   "role_counts": {
     "controller": 103,
     "domain": 5
+  },
+  "type_kind_counts": {
+    "class": 102,
+    "interface": 4,
+    "unknown": 2
   },
   "source_roots": [
     "systems/daytrader7/sample.daytrader7/daytrader-ee7-ejb/src/main/java",

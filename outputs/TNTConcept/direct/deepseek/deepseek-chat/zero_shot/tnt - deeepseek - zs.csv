@@ -1,0 +1,15 @@
+microservice_name,responsibility,communicates_with
+identity-access,"Manage users, authentication (local and LDAP), password policies, access profiles, and authorization scopes.",user-management;notification
+user-management,"Manage employee and user master data, including personal, contractual, department, category, and work agreement information, as well as user-specific configuration.",identity-access;vacation;document-management;notification
+vacation,"Handle vacation requests, approval workflow, balance calculation considering working days and proportional rights, and notifications to approvers.",user-management;notification
+crm,"Manage organizations, contacts, external collaborators, roles, interaction types, and commercial interactions, including advanced search and CSV export.",proposal;project;reporting
+proposal,"Manage proposals with lifecycle states, business potential classification, rejection reasons, composition of work roles, hours, materials, costs, duplication, and conversion to billing drafts.",crm;billing;project
+project,"Manage projects linked to clients, with validity periods, status, roles, costs, and related activities, including time tracking and evidence policies.",crm;activity;billing;reporting
+activity,"Record internal and external activities per collaborator, date, client, project, role, and description, with classification of billable/non-billable and work/non-work time, plus evidence attachment and weekly evidence alerts.",project;user-management;notification;billing
+billing,"Manage billing documents, items, taxes, multiple due dates, payment status, credit notes, and integration with financial entries and proposals.",proposal;activity;project;financial;reporting
+financial,"Manage accounts, transaction types, groups, periodic entries, accounts receivable/payable, and financial indicators, including copying recurring entries.",billing;reporting
+document-management,"Organize documents by categories, maintain versions, associate with responsible users and areas, and support user-specific document folders.",user-management;notification
+knowledge-base,"Manage publications, magazines, tutorials, notice boards, and other support content like ideas, inventory, tags, and links.",user-management
+commissioning,"Manage orders/commissions linked to projects, reviewers, collaborators, and payment data, with lifecycle states, delays, changes, files, and email sending.",project;user-management;notification;document-management
+reporting,"Provide domain-specific reports (billing, hours, projects, proposals, interactions, organizations, personal usage, commissions) and export in multiple formats including CSV, PDF, HTML, RTF, XLS, ODT.",crm;project;activity;billing;financial;commissioning
+notification,"Send email notifications for business events such as vacation requests, contract expirations, password resets, pending evidence, and orders.",vacation;user-management;activity;commissioning;document-management

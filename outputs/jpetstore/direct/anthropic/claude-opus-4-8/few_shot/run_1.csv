@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+Account Service,"Manages customer registration, authentication, session lifecycle, profile editing, and preferences such as favorite category, language, personalized product list, and promotional banner.",Catalog Service;Order Service
+Catalog Service,"Manages product categories, products, items, item details, pricing, keyword search, and stock availability including stock write-off on purchase.",Order Service
+Order Service,"Handles shopping cart management, checkout flow, billing and delivery data, payment details, order creation with unique identifiers, order status, and order history inquiry restricted to the owning customer.",Account Service;Catalog Service

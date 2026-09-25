@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+Authentication Service,"Registers librarians, enforces password strength and username uniqueness, and authenticates access using protected credential storage.",Library Service
+Library Service,"Manages the book catalog, reader registration, book lending, and catalog/reader consultation as one cohesive library operation, enforcing consistency among books, readers, and loans including cascade removal of loan links.",Authentication Service;Environment Administration Service
+Environment Administration Service,"Clears, recreates, and restores the demonstration database to a clean state for repeatable tests and demos.",Library Service
+Mathematics Service,"Provides auxiliary demonstration endpoints for integer sum, Fibonacci, and Ackermann calculations with input validation.",

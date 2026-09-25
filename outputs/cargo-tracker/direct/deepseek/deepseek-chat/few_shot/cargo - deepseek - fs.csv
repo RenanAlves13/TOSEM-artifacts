@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+Cargo Booking Service,"Handles cargo registration, route selection, and replanning, including origin, destination, deadline, and route assignment.",Route Planning Service;Cargo Tracking Service
+Route Planning Service,Provides candidate routes based on cargo requirements and manages route selection and replanning.,Cargo Booking Service
+Handling Event Service,"Registers and processes logistic events (receiving, loading, unloading, customs, pickup) and updates cargo operational status.",Cargo Booking Service;Cargo Tracking Service
+Cargo Tracking Service,"Provides cargo tracking queries, status, location, history, and monitoring views, including administrative dashboards.",Cargo Booking Service;Handling Event Service

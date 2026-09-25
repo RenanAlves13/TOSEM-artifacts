@@ -1,0 +1,7 @@
+microservice_name,responsibility,communicates_with
+Investor Account Service,"Manages investor registration, authentication, login/logout sessions, account financial data (balances, creation/last-access dates, login counts), and profile updates.",Trading Service;Portfolio Service;Quote Service
+Quote Service,"Manages asset quotes, company information, price ranges and variations, consolidated market summary, and updates traded volume and market indicators after trading operations.",Trading Service
+Trading Service,"Handles buy and sell order creation, order lifecycle and status transitions, operating fees, immediate or deferred order processing, balance debit/credit on completion, and order integrity guarantees.",Investor Account Service;Quote Service;Portfolio Service;Order History Service
+Portfolio Service,"Maintains investor holdings and positions resulting from completed orders, calculates invested amount, market value and gain/loss, and supports portfolio consultation and direct sale from positions.",Trading Service;Quote Service
+Order History Service,"Maintains investor order history, provides recent and expanded order views, and generates alerts for completed orders not yet presented to the investor.",Trading Service
+Simulation Administration Service,"Manages simulation operational parameters (processing mode, user/asset limits, summary interval, alert toggles), database preparation and rebuild, data reset, and summary execution statistics for monitoring.",Investor Account Service;Trading Service;Quote Service;Portfolio Service

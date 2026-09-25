@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+User Service,"Manages user registration, authentication, session identity, and role-based access control, including persistent storage of user data and enforcement of username uniqueness.",
+Catalog Service,"Owns the movie and category catalog, providing browsing, details lookup, category-based discovery, and administrator-only catalog administration (registration, deletion, upload). Persistently stores movie and category data and enforces movie title uniqueness.",User Service;Media Service
+Media Service,"Handles movie playback, video file availability, download links, and interaction with the local repository and delivery area, including receiving uploaded video files.",Catalog Service

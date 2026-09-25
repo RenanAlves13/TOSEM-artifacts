@@ -1,0 +1,7 @@
+microservice_name,responsibility,communicates_with
+InvestorAccountService,"Manage investor registration, authentication, profile updates, and account balance and access data.",TradingService;PortfolioService
+MarketDataService,"Provide asset quotes, consolidated market summary, and update market indicators after trades.",TradingService
+TradingService,"Process buy and sell orders, manage order lifecycle, apply fees, and update account balances and market data.",InvestorAccountService;PortfolioService;MarketDataService
+PortfolioService,"Maintain investor portfolio positions, calculate portfolio values and gains/losses, and support position sales.",TradingService;InvestorAccountService;MarketDataService
+OrderHistoryService,Maintain order history and provide alerts for completed orders.,TradingService
+SimulationAdminService,"Configure simulation parameters, prepare/reset simulation data, and provide execution statistics.",InvestorAccountService;TradingService;PortfolioService;MarketDataService

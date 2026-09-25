@@ -1,0 +1,265 @@
+{
+  "complete": true,
+  "requirements": [
+    {
+      "identifier": "RF - 01",
+      "category": "Client Access and Session",
+      "description": "The system must allow the customer to access their account via login and password."
+    },
+    {
+      "identifier": "RF - 02",
+      "category": "",
+      "description": "The system must create a usage session after successful authentication."
+    },
+    {
+      "identifier": "RF - 03",
+      "category": "",
+      "description": "The system must allow the customer to close their session through logout."
+    },
+    {
+      "identifier": "RF - 04",
+      "category": "",
+      "description": "The system must require an active session to access restricted areas, such as customer profile and reservations."
+    },
+    {
+      "identifier": "RF - 05",
+      "category": "Flight inquiry",
+      "description": "The system must allow searching for flights by informing the origin airport, destination airport and travel date."
+    },
+    {
+      "identifier": "RF - 06",
+      "category": "",
+      "description": "The system must allow one-way or round-trip travel searches."
+    },
+    {
+      "identifier": "RF - 07",
+      "category": "",
+      "description": "The system must display the flight options found for each leg of the trip."
+    },
+    {
+      "identifier": "RF - 08",
+      "category": "",
+      "description": "The system must display, for each flight found, information on departure time, arrival time and reference values ​​for the classes displayed to the customer."
+    },
+    {
+      "identifier": "RF - 09",
+      "category": "",
+      "description": "The system must work with a set of previously registered airports."
+    },
+    {
+      "identifier": "RF - 10",
+      "category": "Flight booking",
+      "description": "The system must allow an authenticated customer to book an outbound flight."
+    },
+    {
+      "identifier": "RF - 11",
+      "category": "",
+      "description": "The system must allow an authenticated customer to book round-trip flights in the same operation."
+    },
+    {
+      "identifier": "RF - 12",
+      "category": "",
+      "description": "The system must generate an identifier for each reservation created."
+    },
+    {
+      "identifier": "RF - 13",
+      "category": "",
+      "description": "The system must record the date on which the reservation was made."
+    },
+    {
+      "identifier": "RF - 14",
+      "category": "",
+      "description": "The system must inform the customer of the identifier of the reservation created after completing the operation."
+    },
+    {
+      "identifier": "RF - 15",
+      "category": "Consultation and cancellation of reservations",
+      "description": "The system must allow the customer to consult their existing reservations."
+    },
+    {
+      "identifier": "RF - 16",
+      "category": "",
+      "description": "The system must present the customer with a list of reservations already made."
+    },
+    {
+      "identifier": "RF - 17",
+      "category": "",
+      "description": "The system must allow canceling a selected reservation."
+    },
+    {
+      "identifier": "RF - 18",
+      "category": "",
+      "description": "After cancellation, the reservation should no longer appear as active in the customer's listing."
+    },
+    {
+      "identifier": "RF - 19",
+      "category": "Customer Profile",
+      "description": "The system must allow the customer to consult their own profile."
+    },
+    {
+      "identifier": "RF - 20",
+      "category": "",
+      "description": "The system must display the customer's contact details in the profile, including telephone number, telephone type and address."
+    },
+    {
+      "identifier": "RF - 21",
+      "category": "",
+      "description": "The system must allow updating the customer's contact details and address."
+    },
+    {
+      "identifier": "RF - 22",
+      "category": "",
+      "description": "The system must require the customer's current password to confirm changes to the profile."
+    },
+    {
+      "identifier": "RF - 23",
+      "category": "",
+      "description": "The system must prevent a client from consulting or changing another client's profile."
+    },
+    {
+      "identifier": "RF - 24",
+      "category": "Loyalty program",
+      "description": "The system must display to the customer their status in the loyalty program."
+    },
+    {
+      "identifier": "RF - 25",
+      "category": "",
+      "description": "The system must display the number of miles accumulated during the year."
+    },
+    {
+      "identifier": "RF - 26",
+      "category": "",
+      "description": "The system must display the total number of miles accumulated."
+    },
+    {
+      "identifier": "RF - 27",
+      "category": "",
+      "description": "Loyalty information should be presented to the customer as query data, not as edit fields in the main interface flow."
+    },
+    {
+      "identifier": "RF - 28",
+      "category": "Environment administration and preparation",
+      "description": "The system must allow initial loading or reloading of the application database."
+    },
+    {
+      "identifier": "RF - 29",
+      "category": "",
+      "description": "The loading process must allow defining the number of example clients to be generated."
+    },
+    {
+      "identifier": "RF - 30",
+      "category": "",
+      "description": "The base payload must recreate key operation data, including flights, customers, sessions, and test bookings."
+    },
+    {
+      "identifier": "RF - 31",
+      "category": "",
+      "description": "The system must provide summary operating information, such as number of customers, sessions, flights, segments, reservations and registered airports."
+    },
+    {
+      "identifier": "RNF - 32",
+      "category": "Security and access control",
+      "description": "The application must restrict private functionalities to authenticated clients."
+    },
+    {
+      "identifier": "RNF - 33",
+      "category": "",
+      "description": "The client session must have limited validity and automatically expire after the configured period."
+    },
+    {
+      "identifier": "RNF - 34",
+      "category": "",
+      "description": "Logout should invalidate the session in use immediately."
+    },
+    {
+      "identifier": "RNF - 35",
+      "category": "",
+      "description": "Customer personal data must be protected against undue access by other customers."
+    },
+    {
+      "identifier": "RNF - 36",
+      "category": "Performance and scalability",
+      "description": "The application must support a high volume of calls and queries, especially in the authentication, flight search and reservation flows."
+    },
+    {
+      "identifier": "RNF - 37",
+      "category": "",
+      "description": "Flight queries should prioritize quick responses, as they represent a recurring flow in the customer journey."
+    },
+    {
+      "identifier": "RNF - 38",
+      "category": "",
+      "description": "The solution must be suitable for growth in usage without relying on manual fulfillment for core self-service operations."
+    },
+    {
+      "identifier": "RNF - 39",
+      "category": "Availability and portability",
+      "description": "The application must be able to run in different environments, including local infrastructure, public cloud and hybrid scenarios."
+    },
+    {
+      "identifier": "RNF - 40",
+      "category": "",
+      "description": "The solution must keep customer, flight, session and reservation data persisted between application requests."
+    },
+    {
+      "identifier": "RNF - 41",
+      "category": "Integrity and traceability",
+      "description": "Each session and each reservation must have a unique identification."
+    },
+    {
+      "identifier": "RNF - 42",
+      "category": "",
+      "description": "Reservation and cancellation operations must maintain sufficient consistency to correctly reflect the current state of the customer's reservations."
+    },
+    {
+      "identifier": "RNF - 43",
+      "category": "",
+      "description": "The application must record minimum data for monitoring operations, such as reservation date and count of operational records."
+    },
+    {
+      "identifier": "RNF - 44",
+      "category": "Usability and self-service",
+      "description": "Navigation should favor self-service, allowing the customer to search for flights, manage reservations and update their profile without human intermediation."
+    },
+    {
+      "identifier": "RNF - 45",
+      "category": "",
+      "description": "The system must present times, dates and values ​​in a way that is legible to the customer."
+    },
+    {
+      "identifier": "RNF - 46",
+      "category": "",
+      "description": "The main journeys must be accessible via a simple web interface, with clear separation between flight search, reservations, profile and support."
+    },
+    {
+      "identifier": "RNF - 47",
+      "category": "Administrative operation",
+      "description": "The environment must offer a simple means of preparing and checking the database for testing, demonstrations or operational restart."
+    },
+    {
+      "identifier": "RNF - 48",
+      "category": "",
+      "description": "The system must provide basic operating indicators to monitor the environment without requiring direct consultation of the database."
+    },
+    {
+      "identifier": "RNF - 49",
+      "category": "Scope remarks identified",
+      "description": "The flow called `Check-in` in the interface, in practice, works as querying and canceling reservations; A complete passenger check-in process was not identified in this repository."
+    },
+    {
+      "identifier": "RNF - 50",
+      "category": "",
+      "description": "There is a `Support` interface with the appearance of a real-time chat, but the corresponding backend was not found in the analyzed code. Therefore, this item was not treated above as a consolidated functional requirement."
+    },
+    {
+      "identifier": "RNF - 51",
+      "category": "",
+      "description": "No public registration flow for new customers was identified. Customer accounts are generated by administrative data loading routine."
+    },
+    {
+      "identifier": "RNF - 52",
+      "category": "",
+      "description": "No payment flow, seat choice or formal fare class selection was identified at the time of booking; the system displays prices, but the reservation observed in the code is simplified."
+    }
+  ]
+}

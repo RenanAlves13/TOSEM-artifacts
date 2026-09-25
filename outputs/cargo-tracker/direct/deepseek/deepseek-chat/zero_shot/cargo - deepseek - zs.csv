@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+cargo-booking,"Manage cargo registration, route planning, and replanning. Handles cargo lifecycle from creation to route assignment, including destination changes and route re-evaluation.",cargo-tracking;route-planning;handling-event-ingestion
+cargo-tracking,"Provide cargo tracking and monitoring capabilities. Exposes current status, last known location, expected arrival, and event history. Aggregates data from booking and handling services for administrative and customer-facing views.",cargo-booking;handling-event-ingestion
+handling-event-ingestion,"Ingest and validate logistic events from multiple channels (UI, REST, file, JMS). Ensures events reference valid cargo, location, and voyage. Publishes events for processing and maintains audit trail of accepted and rejected attempts.",cargo-booking;cargo-tracking
+route-planning,"Provide route candidate search and selection based on cargo origin, destination, and deadline. Integrates with external pathfinder services to propose viable routes.",cargo-booking

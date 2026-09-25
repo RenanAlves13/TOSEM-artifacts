@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+Identity and Access Service,"Manages user registration, login, logout/session identity, user uniqueness, and role-based profiles for common users and administrators.",Movie Catalog Service;Media Delivery Service
+Movie Catalog Service,"Manages movie metadata, categories, catalog listing, pagination, movie detail consultation, category-based discovery, and administrator catalog operations such as creating and deleting movie records.",Identity and Access Service;Media Delivery Service
+Media Delivery Service,"Manages video file upload, local media storage, lookup of MP4 files by movie title, preparation of files for playback, and provision of playback or download links when media is available.",Identity and Access Service;Movie Catalog Service

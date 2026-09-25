@@ -1,0 +1,6 @@
+microservice_name,responsibility,communicates_with
+Catalog Service,"Manages product catalog browsing, category organization, product search, and item details including price and stock status.",Order Service;Customer Service
+Customer Service,"Manages customer registration, authentication, profile editing, preferences (language, favorite category), and personalized product lists and banners.",Catalog Service;Order Service
+Cart Service,"Manages shopping cart operations: adding, consolidating, updating, removing items, calculating subtotals, and checking item availability.",Catalog Service;Order Service
+Order Service,"Handles order creation, checkout flow, order confirmation, order history, and order details, ensuring consistency with cart and stock.",Customer Service;Cart Service;Catalog Service;Inventory Service
+Inventory Service,"Manages stock availability, stock levels, and stock write-offs when orders are completed.",Catalog Service;Order Service

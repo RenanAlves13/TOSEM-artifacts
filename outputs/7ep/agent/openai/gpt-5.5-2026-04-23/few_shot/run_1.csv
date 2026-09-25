@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+Librarian Access Service,"Manages librarian registration, credential validation, login, password-strength rules, and protected handling of librarian credentials.",
+Library Operations Service,"Manages the library collection, registered readers, book lending, availability, search/listing, and consistency rules between books, readers, and loans.",
+Demo Environment Administration Service,"Provides controlled demonstration-environment reset, database recreation, and restoration to a clean state for repeatable tests and demos.",Librarian Access Service;Library Operations Service
+Demonstration Math Service,"Provides auxiliary demonstration endpoints for integer addition, Fibonacci calculations, Ackermann calculations, validation of numeric input formats, and a catalog of available services/endpoints for consultation and testing in the demonstration environment.",

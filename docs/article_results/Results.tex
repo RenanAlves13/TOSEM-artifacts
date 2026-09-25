@@ -1,0 +1,48 @@
+\section{Results}
+\label{sec:results}
+
+This section reports descriptive results derived from the repository artifacts available in the analyzed snapshot. The measures characterize direct-generation architecture CSVs, their execution traces, and the static source corpus. They do not constitute human-quality ratings or an external validity assessment.
+
+\subsection{Result availability and artifact quality}
+
+A read-only artifact calculation discovered 48 direct-generation run identities. Of these, 48 yielded a calculable final architecture CSV. Every included direct-generation run resolved to a calculable final architecture CSV. 4 TNTConcept metadata paths selected missing canonical filenames; each was reconciled in memory to the unique CSV in the same condition folder. The source metadata and output artifacts were not modified. All 42 audit notices were repeated metadata records; the latest successful record was selected for each logical run.
+
+The structural parser found no malformed service rows, duplicate service names or communications, invalid communication targets, self-communications, or responsibilities shorter than the configured five-word threshold.
+
+\input{docs/article_results/tables/tab_result_availability.tex}
+
+The direct-generation snapshot has one run per project--provider--prompt condition. Therefore, there are no within-condition run pairs from which to estimate output stability; the corresponding Jaccard stability values are unavailable rather than zero. No human-evaluation data are included in this replication package.
+
+\subsection{Static characteristics of the source corpus}
+
+The static analysis covers 8 Java systems. The corpus ranges from Jokul (967 effective source lines) to TNTConcept (97,785 effective source lines), providing a marked variation in codebase scale and package-level structure. Figure~\ref{fig:static-corpus-profile} visualizes the variation in effective source lines, analyzed type files, and distinct internal package dependencies. The full corpus profile is reported in Table~\ref{tab:static-corpus}.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{docs/article_results/figures/fig_static_corpus_profile.png}
+\caption{Static source-corpus profile. Effective source lines are shown on a logarithmic scale; package edges are distinct internal import-derived relations.}
+\label{fig:static-corpus-profile}
+\end{figure*}
+
+\input{docs/article_results/tables/tab_static_corpus.tex}
+
+Supplementary Tables~S3--S5 report the remaining source-structure, code-volume, heuristic-classification, and import-derived dependency fields for all eight systems.
+
+\subsection{Structural properties of direct-generation outputs}
+
+Across the 48 valid direct-generation outputs, the median service count was 4 (IQR 3--5), and the median number of valid directed communications was 9 (IQR 6--13). Median communication density was 0.67, while the median responsibility length was 23.8 words per service. These values summarize output structure and lexical detail; they do not establish that a larger or denser architecture is better.
+
+\input{docs/article_results/tables/tab_direct_by_condition.tex}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{docs/article_results/figures/fig_direct_architecture_metrics.png}
+\caption{Distribution of structural metrics across valid direct-generation outputs. Each point is one system-condition output, and horizontal bars denote medians within a provider--prompt condition.}
+\label{fig:direct-architecture-metrics}
+\end{figure*}
+
+Supplementary Table~S1 provides the complete descriptive summary for every calculated architecture metric, while Supplementary Table~S2 provides all direct-generation trace metrics. The row-level exports accompanying this section preserve every calculated value, including malformed rows, invalid targets, isolation, reciprocity, responsibility-length, lexical-overlap, retry, duration, prompt-volume, role, and final-snapshot measures.
+
+\subsection{Interpretation boundary}
+
+The reported measures are deliberately descriptive. Structural regularity, prompt volume, and trace duration are useful audit signals, but none independently demonstrates requirement coverage, domain correctness, implementability, or superiority. Those claims require the planned expert-review data and, where appropriate, independent architectural validation.

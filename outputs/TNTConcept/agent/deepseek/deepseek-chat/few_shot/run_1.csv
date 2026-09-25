@@ -1,0 +1,14 @@
+microservice_name,responsibility,communicates_with
+User Management Service,"Manages user profiles, personal and contractual data, departments, categories, access profiles, and employment agreement linkage.",HR Service;Document Service;Authentication and Authorization Service
+Authentication and Authorization Service,"Manages password policies, authentication (local and LDAP), and access control enforcement across critical entities.",User Management Service;Document Service;Billing Service
+HR Service,"Manages employment agreements, vacation requests, vacation balances, and related notifications. Vacation balance calculation depends on employment agreement data and approved vacation requests.",User Management Service;Notification Service
+CRM Service,"Manages organizations, contacts, interactions, proposals, and commercial relationship data.",Project Service;Billing Service
+Project Service,"Manages projects, activities, time reporting, evidence, objectives, and work allocations.",CRM Service;Billing Service;Notification Service
+Billing Service,"Manages accounts, transactions, billing records, due dates, payments, and financial indicators.",CRM Service;Project Service
+Order Service,"Manages orders, commissions, order workflow, and related documents and history.",Notification Service;Document Service
+Document Service,"Manages documents, versions, categories, and associations with users and organizational areas.",
+Knowledge Base Service,"Manages publications, magazines, tutorials, notice boards, and other supporting content.",
+Notification Service,"Sends email notifications for business events such as vacation requests, contract expiry, pending evidence, and orders.",
+Reporting and Export Service,"Provides cross-domain reports and multi-format exports (CSV, PDF, HTML, RTF, XLS, ODT) for billing, hours, projects, proposals, interactions, organizations, personal use, and commissions.",Billing Service;Project Service;CRM Service;Order Service;User Management Service
+Master Data Administration Service,"Maintains supporting master data used across the system, including departments, contract types, user categories, organization types, interaction types, tax reasons, billing schemes, and frequencies.",User Management Service;CRM Service;Billing Service;HR Service
+Operations and Continuity Service,"Manages external storage for attachments and reports, startup validation of configuration directories and files, automatic preparation of upload storage structure, and configuration-driven enabling/disabling of operational rules.",Document Service

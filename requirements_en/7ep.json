@@ -1,0 +1,349 @@
+{
+  "requirements": [
+    {
+      "identifier": "RF - 01",
+      "category": "Librarian access",
+      "description": "The system should allow registering of librarians by username and password."
+    },
+    {
+      "identifier": "RF - 02",
+      "category": "",
+      "description": "The system should not allow registering of a librarian with an existing username."
+    },
+    {
+      "identifier": "RF - 03",
+      "category": "",
+      "description": "The system must require the completion of a username and password in the registration."
+    },
+    {
+      "identifier": "RF - 04",
+      "category": "",
+      "description": "The system should only accept passwords considered strong enough for safe use."
+    },
+    {
+      "identifier": "RF - 05",
+      "category": "",
+      "description": "The system must reject very short passwords."
+    },
+    {
+      "identifier": "RF - 06",
+      "category": "",
+      "description": "The system should allow authenticated librarians to enter username and password to enter the system."
+    },
+    {
+      "identifier": "RF - 07",
+      "category": "",
+      "description": "The system should grant access only when user and password exactly match the existing record."
+    },
+    {
+      "identifier": "RF - 08",
+      "category": "",
+      "description": "The system must deny access when the user or password are incorrect or are not informed."
+    },
+    {
+      "identifier": "RF - 09",
+      "category": "Book registration and maintenance",
+      "description": "The system should allow registering of books in the collection by title."
+    },
+    {
+      "identifier": "RF - 10",
+      "category": "",
+      "description": "The system should not allow duplicate registration of the same book."
+    },
+    {
+      "identifier": "RF - 11",
+      "category": "",
+      "description": "The system must inform when the attempt to register the book fails due to lack of title."
+    },
+    {
+      "identifier": "RF - 12",
+      "category": "",
+      "description": "The system should allow deleting of books already registered."
+    },
+    {
+      "identifier": "RF - 13",
+      "category": "",
+      "description": "The system should not allow deleting of books that have never been registered."
+    },
+    {
+      "identifier": "RF - 14",
+      "category": "",
+      "description": "The system should also delete the loan link when a removed book is borrowed."
+    },
+    {
+      "identifier": "RF - 15",
+      "category": "Registration and maintenance of readers",
+      "description": "The system should allow registering of readers able to receive loans."
+    },
+    {
+      "identifier": "RF - 16",
+      "category": "",
+      "description": "The system should not allow duplicate registration of the same reader."
+    },
+    {
+      "identifier": "RF - 17",
+      "category": "",
+      "description": "The system must inform when the attempt to register the reader fails due to lack of name."
+    },
+    {
+      "identifier": "RF - 18",
+      "category": "",
+      "description": "The system should allow deleting of readers already registered."
+    },
+    {
+      "identifier": "RF - 19",
+      "category": "",
+      "description": "The system should not allow deleting of readers who have never been registered."
+    },
+    {
+      "identifier": "RF - 20",
+      "category": "",
+      "description": "The system should also delete loan links when a removed reader has borrowed books."
+    },
+    {
+      "identifier": "RF - 21",
+      "category": "Book Borrowing",
+      "description": "The system should allow recording of the loan of a book to a registered reader."
+    },
+    {
+      "identifier": "RF - 22",
+      "category": "",
+      "description": "The system must record the date on which the loan was made."
+    },
+    {
+      "identifier": "RF - 23",
+      "category": "",
+      "description": "The system should not allow lending to a person who is not registered as a reader."
+    },
+    {
+      "identifier": "RF - 24",
+      "category": "",
+      "description": "The system should not allow borrowing of a book that is not registered."
+    },
+    {
+      "identifier": "RF - 25",
+      "category": "",
+      "description": "The system should not allow borrowing of a book that is already lent to another person."
+    },
+    {
+      "identifier": "RF - 26",
+      "category": "",
+      "description": "The system should allow the same reader to borrow more than one book at the same time."
+    },
+    {
+      "identifier": "RF - 27",
+      "category": "",
+      "description": "The system must ensure that the same book is loaned to only one reader at a time."
+    },
+    {
+      "identifier": "RF - 28",
+      "category": "",
+      "description": "The system should clearly inform when a loan cannot be completed."
+    },
+    {
+      "identifier": "RF - 29",
+      "category": "Consultation of collections and readers",
+      "description": "The system should allow listing of all registered books."
+    },
+    {
+      "identifier": "RF - 30",
+      "category": "",
+      "description": "The system should allow consulting of a book by identifier."
+    },
+    {
+      "identifier": "RF - 31",
+      "category": "",
+      "description": "The system should allow consulting of one book by title."
+    },
+    {
+      "identifier": "RF - 32",
+      "category": "",
+      "description": "The system should inform when there are no registered books or when a search finds no result."
+    },
+    {
+      "identifier": "RF - 33",
+      "category": "",
+      "description": "The system should allow listing of only the books available for loan."
+    },
+    {
+      "identifier": "RF - 34",
+      "category": "",
+      "description": "The system should allow listing of all registered readers."
+    },
+    {
+      "identifier": "RF - 35",
+      "category": "",
+      "description": "The system should allow consulting of a reader by identifier."
+    },
+    {
+      "identifier": "RF - 36",
+      "category": "",
+      "description": "The system should allow consulting of a reader by name."
+    },
+    {
+      "identifier": "RF - 37",
+      "category": "",
+      "description": "The system should inform when there are no registered readers or when a search finds no result."
+    },
+    {
+      "identifier": "RF - 38",
+      "category": "",
+      "description": "The system should not accept, in the same query, simultaneous search by identifier and by name/title."
+    },
+    {
+      "identifier": "RF - 39",
+      "category": "Interface operational support",
+      "description": "The system should make it easier to fill out the loan by displaying options for available books and registered readers."
+    },
+    {
+      "identifier": "RF - 40",
+      "category": "",
+      "description": "The system must adapt the form of choice on the loan screen according to the number of options available, using direct selection when there are few options and search suggestions when there are many."
+    },
+    {
+      "identifier": "RF - 41",
+      "category": "",
+      "description": "The system should lock the loan selection field when no data is available to choose from."
+    },
+    {
+      "identifier": "RF - 42",
+      "category": "",
+      "description": "The system should display the result of each operation immediately after sending the form."
+    },
+    {
+      "identifier": "RF - 43",
+      "category": "Demo Environment Administration",
+      "description": "The system should allow cleaning of the data and the base structure to restart the environment."
+    },
+    {
+      "identifier": "RF - 44",
+      "category": "",
+      "description": "The system should allow recreating of the base structure when necessary."
+    },
+    {
+      "identifier": "RF - 45",
+      "category": "",
+      "description": "The system should allow quickly restoring of the environment to a clean state and ready for further testing."
+    },
+    {
+      "identifier": "RF - 46",
+      "category": "Auxiliary and demonstrative features",
+      "description": "The system must offer a catalog of services for consultation and testing of available endpoints."
+    },
+    {
+      "identifier": "RF - 47",
+      "category": "",
+      "description": "The system should allow adding of two integers informed by the user."
+    },
+    {
+      "identifier": "RF - 48",
+      "category": "",
+      "description": "The system should allow calculating of Fibonacci sequence values with more than one calculation approach."
+    },
+    {
+      "identifier": "RF - 49",
+      "category": "",
+      "description": "The system should allow calculating of the results of the Ackermann function with more than one calculation approach."
+    },
+    {
+      "identifier": "RF - 50",
+      "category": "",
+      "description": "The system must report an error when the mathematical services receive values outside the expected format."
+    },
+    {
+      "identifier": "RNF - 51",
+      "category": "Security and access protection",
+      "description": "The system should handle librarian credentials in a protected manner, without relying on the plaintext password for further validation."
+    },
+    {
+      "identifier": "RNF - 52",
+      "category": "",
+      "description": "The system must require passwords with a minimum level of robustness before completing the registration of a librarian."
+    },
+    {
+      "identifier": "RNF - 53",
+      "category": "",
+      "description": "The system must respond clearly to denied access attempts, without exposing sensitive details of the internal processing."
+    },
+    {
+      "identifier": "RNF - 54",
+      "category": "Completeness of information",
+      "description": "The system should preserve consistency between books, readers, and loans by avoiding invalid or contradictory records."
+    },
+    {
+      "identifier": "RNF - 55",
+      "category": "",
+      "description": "The system should prevent duplicates in the main records when the record already exists."
+    },
+    {
+      "identifier": "RNF - 56",
+      "category": "",
+      "description": "The system should keep the base coherent when books or readers are deleted, also removing linked loans."
+    },
+    {
+      "identifier": "RNF - 57",
+      "category": "",
+      "description": "The system must validate mandatory data before performing business operations."
+    },
+    {
+      "identifier": "RNF - 58",
+      "category": "Usability",
+      "description": "The system must be able to be used through simple web forms, with quick and legible feedback for each action."
+    },
+    {
+      "identifier": "RNF - 59",
+      "category": "",
+      "description": "The system must offer objective messages of success, denial and error to guide the user."
+    },
+    {
+      "identifier": "RNF - 60",
+      "category": "",
+      "description": "The system should reduce manual typing in repetitive flows, such as borrowing books, through lists or suggestions."
+    },
+    {
+      "identifier": "RNF - 61",
+      "category": "",
+      "description": "The system should work in common browsers and consider use in smaller screens."
+    },
+    {
+      "identifier": "RNF - 62",
+      "category": "Operational reliability test",
+      "description": "The system should allow restarting of the data environment in a predictable way for repetition of tests and demonstrations."
+    },
+    {
+      "identifier": "RNF - 63",
+      "category": "",
+      "description": "The system must maintain consistent behavior across both the main interface and the query and data submission endpoints."
+    },
+    {
+      "identifier": "RNF - 64",
+      "category": "",
+      "description": "The system shall record key operations to support traceability and problem analysis."
+    },
+    {
+      "identifier": "RNF - 65",
+      "category": "Quality and evolution",
+      "description": "The central rules of registration, authentication, consultation and lending must be verified in a repeatable manner by automated tests."
+    },
+    {
+      "identifier": "RNF - 66",
+      "category": "",
+      "description": "The system must be organized by business domains, favoring maintenance and expansion of functionalities."
+    },
+    {
+      "identifier": "RNF - 67",
+      "category": "Survey Endorsements",
+      "description": "The code implements book and reader deletion rules, but the current main screen does not expose these commands directly."
+    },
+    {
+      "identifier": "RNF - 68",
+      "category": "",
+      "description": "The system has librarian authentication, but the current code does not show session blocking in other library operations."
+    },
+    {
+      "identifier": "RNF - 69",
+      "category": "",
+      "description": "The library and authentication part and the clearest business core of the application; mathematical modules appear as demonstration helper functionalities."
+    }
+  ]
+}

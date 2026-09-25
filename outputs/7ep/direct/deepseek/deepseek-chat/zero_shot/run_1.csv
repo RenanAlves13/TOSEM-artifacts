@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+authentication-service,"Manage librarian registration, authentication, and credential security.",library-service;persistence-service
+library-service,"Manage book and reader registration, deletion, consultation, and borrowing operations.",authentication-service;persistence-service
+persistence-service,"Provide data persistence and database administration, including schema reset and data cleanup.",authentication-service;library-service
+mathematics-service,"Provide demonstrative mathematical calculations (addition, Fibonacci, Ackermann) as auxiliary features.",

@@ -5,6 +5,7 @@ from typing import Any
 
 from .config import PromptLimits
 from .requirements_loader import RequirementsData, normalize_header
+from .requirement_translations import load_english_requirements
 from .static_analysis_loader import StaticAnalysisData, StaticArtifact
 
 
@@ -216,7 +217,11 @@ def build_evidence_context(
     static_analysis: StaticAnalysisData,
     limits: PromptLimits,
 ) -> str:
-    requirements_content = build_requirements_context(requirements, limits)
+    english_requirements = load_english_requirements(
+        requirements,
+        project_name=project_name,
+    )
+    requirements_content = build_requirements_context(english_requirements, limits)
     static_analysis_content = build_static_analysis_context(static_analysis, limits)
     return (
         f"Project name: {project_name}\n\n"
@@ -242,7 +247,7 @@ def build_repair_prompt(raw_response: str, error_message: str) -> str:
 
 def build_requirements_context(requirements: RequirementsData, limits: PromptLimits) -> str:
     lines = [
-        f"- Source file: {requirements.file_path.as_posix()}",
+        "- Source: reviewed English translation of the project requirements CSV",
         f"- Columns: {', '.join(requirements.columns)}",
         f"- Total requirement rows: {requirements.row_count}",
     ]

@@ -1,0 +1,155 @@
+PROMPT TEMPLATE: few_shot
+
+=== SYSTEM PROMPT ===
+Structured multi-agent workflow: domain analyst, structural analyst, architect, critic, and refiner. Exact prompts and intermediate outputs are in the trace JSONL.
+
+=== USER PROMPT ===
+Project name: 7ep
+
+System requirements:
+- Source: reviewed English translation of the project requirements CSV
+- Columns: Category, Identifier, Description
+- Total requirement rows: 69
+- Top requirement categories: (uncategorized) (55); Auxiliary and demonstrative features (1); Book Borrowing (1); Book registration and maintenance (1); Completeness of information (1); Consultation of collections and readers (1); Demo Environment Administration (1); Interface operational support (1); Librarian access (1); Operational reliability test (1)
+- Representative requirement rows:
+  - [RF - 01] | category=Librarian access | The system should allow registering of librarians by username and password.
+  - [RF - 02] | The system should not allow registering of a librarian with an existing username.
+  - [RF - 03] | The system must require the completion of a username and password in the registration.
+  - [RF - 04] | The system should only accept passwords considered strong enough for safe use.
+  - [RF - 05] | The system must reject very short passwords.
+  - [RF - 06] | The system should allow authenticated librarians to enter username and password to enter the system.
+  - [RF - 07] | The system should grant access only when user and password exactly match the existing record.
+  - [RF - 08] | The system must deny access when the user or password are incorrect or are not informed.
+  - [RF - 09] | category=Book registration and maintenance | The system should allow registering of books in the collection by title.
+  - [RF - 10] | The system should not allow duplicate registration of the same book.
+  - [RF - 11] | The system must inform when the attempt to register the book fails due to lack of title.
+  - [RF - 12] | The system should allow deleting of books already registered.
+  - [RF - 13] | The system should not allow deleting of books that have never been registered.
+  - [RF - 14] | The system should also delete the loan link when a removed book is borrowed.
+  - [RF - 15] | category=Registration and maintenance of readers | The system should allow registering of readers able to receive loans.
+  - [RF - 16] | The system should not allow duplicate registration of the same reader.
+  - [RF - 17] | The system must inform when the attempt to register the reader fails due to lack of name.
+  - [RF - 18] | The system should allow deleting of readers already registered.
+  - [RF - 19] | The system should not allow deleting of readers who have never been registered.
+  - [RF - 20] | The system should also delete loan links when a removed reader has borrowed books.
+  - [RF - 21] | category=Book Borrowing | The system should allow recording of the loan of a book to a registered reader.
+  - [RF - 22] | The system must record the date on which the loan was made.
+  - [RF - 23] | The system should not allow lending to a person who is not registered as a reader.
+  - [RF - 24] | The system should not allow borrowing of a book that is not registered.
+  - [RF - 25] | The system should not allow borrowing of a book that is already lent to another person.
+  - [RF - 26] | The system should allow the same reader to borrow more than one book at the same time.
+  - [RF - 27] | The system must ensure that the same book is loaned to only one reader at a time.
+  - [RF - 28] | The system should clearly inform when a loan cannot be completed.
+  - [RF - 29] | category=Consultation of collections and readers | The system should allow listing of all registered books.
+  - [RF - 30] | The system should allow consulting of a book by identifier.
+  - [RF - 31] | The system should allow consulting of one book by title.
+  - [RF - 32] | The system should inform when there are no registered books or when a search finds no result.
+  - [RF - 33] | The system should allow listing of only the books available for loan.
+  - [RF - 34] | The system should allow listing of all registered readers.
+  - [RF - 35] | The system should allow consulting of a reader by identifier.
+  - [RF - 36] | The system should allow consulting of a reader by name.
+  - [RF - 37] | The system should inform when there are no registered readers or when a search finds no result.
+  - [RF - 38] | The system should not accept, in the same query, simultaneous search by identifier and by name/title.
+  - [RF - 39] | category=Interface operational support | The system should make it easier to fill out the loan by displaying options for available books and registered readers.
+  - [RF - 40] | The system must adapt the form of choice on the loan screen according to the number of options available, using direct selection when there are few options and search suggestions when there are many.
+  - [RF - 41] | The system should lock the loan selection field when no data is available to choose from.
+  - [RF - 42] | The system should display the result of each operation immediately after sending the form.
+  - [RF - 43] | category=Demo Environment Administration | The system should allow cleaning of the data and the base structure to restart the environment.
+  - [RF - 44] | The system should allow recreating of the base structure when necessary.
+  - [RF - 45] | The system should allow quickly restoring of the environment to a clean state and ready for further testing.
+  - [RF - 46] | category=Auxiliary and demonstrative features | The system must offer a catalog of services for consultation and testing of available endpoints.
+  - [RF - 47] | The system should allow adding of two integers informed by the user.
+  - [RF - 48] | The system should allow calculating of Fibonacci sequence values with more than one calculation approach.
+  - [RF - 49] | The system should allow calculating of the results of the Ackermann function with more than one calculation approach.
+  - [RF - 50] | The system must report an error when the mathematical services receive values outside the expected format.
+  - [RNF - 51] | category=Security and access protection | The system should handle librarian credentials in a protected manner, without relying on the plaintext password for further validation.
+  - [RNF - 52] | The system must require passwords with a minimum level of robustness before completing the registration of a librarian.
+  - [RNF - 53] | The system must respond clearly to denied access attempts, without exposing sensitive details of the internal processing.
+  - [RNF - 54] | category=Completeness of information | The system should preserve consistency between books, readers, and loans by avoiding invalid or contradictory records.
+  - [RNF - 55] | The system should prevent duplicates in the main records when the record already exists.
+  - [RNF - 56] | The system should keep the base coherent when books or readers are deleted, also removing linked loans.
+  - [RNF - 57] | The system must validate mandatory data before performing business operations.
+  - [RNF - 58] | category=Usability | The system must be able to be used through simple web forms, with quick and legible feedback for each action.
+  - [RNF - 59] | The system must offer objective messages of success, denial and error to guide the user.
+  - [RNF - 60] | The system should reduce manual typing in repetitive flows, such as borrowing books, through lists or suggestions.
+  - [RNF - 61] | The system should work in common browsers and consider use in smaller screens.
+  - [RNF - 62] | category=Operational reliability test | The system should allow restarting of the data environment in a predictable way for repetition of tests and demonstrations.
+  - [RNF - 63] | The system must maintain consistent behavior across both the main interface and the query and data submission endpoints.
+  - [RNF - 64] | The system shall record key operations to support traceability and problem analysis.
+  - [RNF - 65] | category=Quality and evolution | The central rules of registration, authentication, consultation and lending must be verified in a repeatable manner by automated tests.
+  - [RNF - 66] | The system must be organized by business domains, favoring maintenance and expansion of functionalities.
+  - [RNF - 67] | category=Survey Endorsements | The code implements book and reader deletion rules, but the current main screen does not expose these commands directly.
+  - [RNF - 68] | The system has librarian authentication, but the current code does not show session blocking in other library operations.
+  - [RNF - 69] | The library and authentication part and the clearest business core of the application; mathematical modules appear as demonstration helper functionalities.
+
+Static analysis evidence:
+- Source directory: C:/Users/Renanzin/arquitecture generation tool/analysis-results/static-analysis/7ep
+- Static analysis files found: 6
+- Summary file: C:/Users/Renanzin/arquitecture generation tool/analysis-results/static-analysis/7ep/summary.json
+- Summary counts: build_files=3, declared_submodules=0, modules_with_parse_errors=0, source_roots=8, java_files=119, java_descriptor_files=10, analyzed_type_files=109, packages=14, package_roots=1, classes=109, entrypoints=14, main_classes=53, test_classes=42, ui_test_classes=3, methods=670, public_methods=543, source_lines=17045, effective_source_lines=7826, imports=677, internal_imports=112, external_imports=565, internal_package_dependencies=13, external_package_dependencies=148, package_dependency_edges=161, internal_package_dependency_occurrences=111, external_package_dependency_occurrences=565, external_dependency_roots=41, inferred_roles=6, type_kinds=3
+- Build tools: gradle
+- Role counts: controller=12, domain=9, other=31, persistence=8, test=45, utility=4
+- Package roots: com.coveros.training (14)
+- Top internal package dependencies:
+  - com.coveros.training.library -> com.coveros.training.library.domainobjects (count=29)
+  - com.coveros.training.library -> com.coveros.training.helpers (count=16)
+  - com.coveros.training.authentication -> com.coveros.training.authentication.domainobjects (count=11)
+  - com.coveros.training.authentication -> com.coveros.training.persistence (count=10)
+  - com.coveros.training.persistence -> com.coveros.training.library.domainobjects (count=9)
+  - com.coveros.training.authentication -> com.coveros.training.helpers (count=8)
+  - com.coveros.training.library -> com.coveros.training.persistence (count=7)
+  - com.coveros.training.mathematics -> com.coveros.training.helpers (count=6)
+  - com.coveros.training.persistence -> com.coveros.training.authentication.domainobjects (count=4)
+  - com.coveros.training.persistence -> com.coveros.training.helpers (count=4)
+  - com.coveros.training.tomcat -> com.coveros.training.persistence (count=3)
+  - com.coveros.training.library.domainobjects -> com.coveros.training.helpers (count=2)
+  - com.coveros.training.math -> com.coveros.training.mathematics (count=2)
+- Frequent external dependencies: javax.servlet (97); org.junit (95); java.util (63); org.slf4j (38); org.apache.commons (28); io.cucumber.java (28); java.time (21); java.sql (20); org.mockito (20); org.mockito.Mockito (19); java.io (16); com.coveros.training (12); org.junit.Assert (10); nl.jqno.equalsverifier (9); java.math (9); org.checkerframework.checker (9); org.junit.runners (8); org.openqa.selenium (7); java.net (6); com.gargoylesoftware.htmlunit (6)
+- Detected modules/build files:
+  - module=demo, tool=gradle, artifact=demo, packaging=war, java=11
+  - module=demo/desktop_app, tool=gradle, artifact=desktop_app, packaging=jar, java=11
+  - module=demo/src/ui_tests/java, tool=gradle, artifact=java, packaging=jar, java=11
+- Top packages by structural weight:
+  - com.coveros.training.mathematics: classes=18, methods=88, roles=controller:3|other:7|test:8, incoming_internal=2, outgoing_internal=6
+  - com.coveros.training.library: classes=17, methods=176, roles=controller:6|other:3|test:8, incoming_internal=0, outgoing_internal=52
+  - com.coveros.training.persistence: classes=13, methods=139, roles=controller:1|persistence:8|test:4, incoming_internal=20, outgoing_internal=17
+  - com.coveros.training.autoinsurance: classes=12, methods=60, roles=other:6|test:6, incoming_internal=0, outgoing_internal=0
+  - com.coveros.training.authentication: classes=11, methods=70, roles=controller:2|other:4|test:5, incoming_internal=0, outgoing_internal=29
+  - com.coveros.training.authentication.domainobjects: classes=8, methods=37, roles=domain:5|test:3, incoming_internal=15, outgoing_internal=0
+  - com.coveros.training.helpers: classes=8, methods=26, roles=test:4|utility:4, incoming_internal=36, outgoing_internal=0
+  - com.coveros.training.library.domainobjects: classes=7, methods=36, roles=domain:4|test:3, incoming_internal=38, outgoing_internal=2
+  - com.coveros.training.expenses: classes=4, methods=9, roles=other:4, incoming_internal=0, outgoing_internal=0
+  - com.coveros.training: classes=3, methods=10, roles=test:3, incoming_internal=0, outgoing_internal=0
+  - com.coveros.training.math: classes=3, methods=7, roles=other:3, incoming_internal=0, outgoing_internal=2
+  - com.coveros.training.cartesianproduct: classes=2, methods=4, roles=other:2, incoming_internal=0, outgoing_internal=0
+  - com.coveros.training.tomcat: classes=2, methods=8, roles=other:1|test:1, incoming_internal=0, outgoing_internal=3
+  - com.coveros.training.selenified: classes=1, methods=0, roles=other:1, incoming_internal=0, outgoing_internal=0
+- Internal dependency edges:
+  - com.coveros.training.library -> com.coveros.training.library.domainobjects (count=29)
+  - com.coveros.training.library -> com.coveros.training.helpers (count=16)
+  - com.coveros.training.authentication -> com.coveros.training.authentication.domainobjects (count=11)
+  - com.coveros.training.authentication -> com.coveros.training.persistence (count=10)
+  - com.coveros.training.persistence -> com.coveros.training.library.domainobjects (count=9)
+  - com.coveros.training.authentication -> com.coveros.training.helpers (count=8)
+  - com.coveros.training.library -> com.coveros.training.persistence (count=7)
+  - com.coveros.training.mathematics -> com.coveros.training.helpers (count=6)
+  - com.coveros.training.persistence -> com.coveros.training.authentication.domainobjects (count=4)
+  - com.coveros.training.persistence -> com.coveros.training.helpers (count=4)
+  - com.coveros.training.tomcat -> com.coveros.training.persistence (count=3)
+  - com.coveros.training.library.domainobjects -> com.coveros.training.helpers (count=2)
+  - com.coveros.training.math -> com.coveros.training.mathematics (count=2)
+- Entrypoints detected in code:
+  - LoginServlet (com.coveros.training.authentication) reasons=http-entrypoint
+  - RegisterServlet (com.coveros.training.authentication) reasons=http-entrypoint
+  - LibraryBookListAvailableServlet (com.coveros.training.library) reasons=http-entrypoint
+  - LibraryBookListSearchServlet (com.coveros.training.library) reasons=http-entrypoint
+  - LibraryBorrowerListSearchServlet (com.coveros.training.library) reasons=http-entrypoint
+  - LibraryLendServlet (com.coveros.training.library) reasons=http-entrypoint
+  - LibraryRegisterBookServlet (com.coveros.training.library) reasons=http-entrypoint
+  - LibraryRegisterBorrowerServlet (com.coveros.training.library) reasons=http-entrypoint
+  - AckServlet (com.coveros.training.mathematics) reasons=http-entrypoint
+  - FibServlet (com.coveros.training.mathematics) reasons=http-entrypoint
+  - MathServlet (com.coveros.training.mathematics) reasons=http-entrypoint
+  - DbServlet (com.coveros.training.persistence) reasons=http-entrypoint
+  - AutoInsuranceUI (com.coveros.training.autoinsurance) reasons=main-method
+  - ExecutionDataClient (com.coveros.training.autoinsurance) reasons=main-method

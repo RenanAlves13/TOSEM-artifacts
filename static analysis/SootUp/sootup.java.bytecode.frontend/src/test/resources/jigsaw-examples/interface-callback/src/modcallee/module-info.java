@@ -1,3 +1,0 @@
-module modcallee {
-    exports pkgcallee;
-}

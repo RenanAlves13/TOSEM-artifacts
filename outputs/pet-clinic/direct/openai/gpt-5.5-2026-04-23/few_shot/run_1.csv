@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+Owner and Pet Service,"Manages guardian registration, guardian search and details, pets linked to guardians, pet types, and pet validation rules such as unique pet names per owner and non-future birth dates.",Visit Service
+Visit Service,"Records visits for specific pets, maintains visit history associated with pets and owners, and coordinates visit assignment while keeping visit records consistent if assignment is processed separately.",Owner and Pet Service;Veterinarian Service
+Veterinarian Service,"Manages veterinarian listing, specialties, structured veterinarian data for external consumption, workload calculation, next scheduled visit information, and automatic assignment of new visits to veterinarians with lower future workload.",Visit Service

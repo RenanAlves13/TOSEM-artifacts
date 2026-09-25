@@ -1,0 +1,9 @@
+microservice_name,responsibility,communicates_with
+Identity and Access Service,"Manages user accounts, authentication (local and LDAP), password policies, user profiles, access control, and user-specific configuration.",Human Resources Service;Document Management Service;Notification Service
+Human Resources Service,"Manages employees, contracts, work agreements, departments, user categories, vacation requests, vacation balances, and contract expiration alerts.",Identity and Access Service;Notification Service
+CRM Service,"Manages organizations, contacts, external collaborators, roles, interaction types, commercial interactions, and advanced contact search/export.",Project Service;Billing Service
+Project Service,"Manages projects, project roles, project costs, activities (internal/external), time tracking, objectives, weekly objectives, and evidence policies.",CRM Service;Billing Service;Notification Service
+Billing Service,"Manages proposals, billing drafts, invoices, financial accounts, financial transactions, accounts receivable/payable, credit titles, and financial indicators.",CRM Service;Project Service;Notification Service
+Document Management Service,"Manages document categories, document versions, user-specific document folders, publications, tutorials, notice boards, and other content management.",Identity and Access Service
+Order and Commissioning Service,"Manages orders/commissions, their lifecycle states, delays, changes, files, and email sending of related documents.",Project Service;Notification Service
+Notification Service,"Sends email notifications for business events such as vacation requests, contract expirations, password resets, pending evidence, and order updates.",Identity and Access Service;Human Resources Service;Project Service;Billing Service;Order and Commissioning Service

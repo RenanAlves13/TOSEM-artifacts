@@ -1,0 +1,6 @@
+microservice_name,responsibility,communicates_with
+Customer Service,"Manages customer profiles, authentication, and session lifecycle.",Booking Service;Loyalty Service
+Flight Service,"Manages flight search, flight information, and airport data.",Booking Service
+Booking Service,"Handles flight reservations, booking creation, consultation, and cancellation.",Customer Service;Flight Service
+Loyalty Service,Manages customer loyalty status and mileage accumulation.,Customer Service
+Administration Service,"Provides database loading, environment preparation, and operational monitoring.",Customer Service;Flight Service;Booking Service

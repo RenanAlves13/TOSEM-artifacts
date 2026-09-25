@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llrrrrr}
+\toprule
+Provider & Prompt & n & Services & Valid links & Density & Responsibility words \\
+\midrule
+OpenAI & zero-shot & 8 & 3.5 [3.0, 4.0] & 6.0 [6.0, 10.0] & 0.92 [0.79, 1.00] & 31.0 [27.0, 32.9] \\
+OpenAI & few-shot & 8 & 3.5 [3.0, 4.2] & 6.0 [6.0, 11.5] & 0.82 [0.71, 1.00] & 25.5 [21.9, 28.9] \\
+Anthropic & zero-shot & 8 & 4.5 [3.8, 5.0] & 9.5 [5.5, 11.5] & 0.60 [0.43, 0.71] & 40.3 [33.8, 42.9] \\
+Anthropic & few-shot & 8 & 4.5 [3.0, 5.2] & 9.5 [4.8, 14.2] & 0.66 [0.50, 0.73] & 23.8 [23.0, 25.1] \\
+DeepSeek & zero-shot & 8 & 4.5 [4.0, 6.0] & 10.5 [6.8, 13.2] & 0.53 [0.46, 0.65] & 13.6 [9.9, 17.9] \\
+DeepSeek & few-shot & 8 & 4.5 [3.8, 5.2] & 9.5 [7.0, 12.2] & 0.53 [0.42, 0.67] & 13.7 [10.8, 15.6] \\
+\bottomrule
+\end{tabular}
+\caption{Descriptive structural statistics for valid direct-generation outputs. Entries are median [Q1, Q3] across available systems.}
+\label{tab:direct-by-condition}
+\end{table}

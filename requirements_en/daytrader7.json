@@ -1,0 +1,355 @@
+{
+  "complete": true,
+  "requirements": [
+    {
+      "identifier": "RF - 01",
+      "category": "Registration and Access",
+      "description": "The system must allow the registration of new investors."
+    },
+    {
+      "identifier": "RF - 02",
+      "category": "",
+      "description": "Investor registration must include, at a minimum, user identification, password, password confirmation, full name, address, email, card and initial opening balance."
+    },
+    {
+      "identifier": "RF - 03",
+      "category": "",
+      "description": "The system must validate that the password and password confirmation entered during registration are identical."
+    },
+    {
+      "identifier": "RF - 04",
+      "category": "",
+      "description": "The system should not allow the registration of an investor with an already existing identification."
+    },
+    {
+      "identifier": "RF - 05",
+      "category": "",
+      "description": "The system must authenticate the investor using username and password."
+    },
+    {
+      "identifier": "RF - 06",
+      "category": "",
+      "description": "The system must allow login for authenticated investors."
+    },
+    {
+      "identifier": "RF - 07",
+      "category": "",
+      "description": "The system must allow the investor's session to be closed via logout."
+    },
+    {
+      "identifier": "RF - 08",
+      "category": "",
+      "description": "The system must prevent access to account, portfolio and trading resources when the investor is not authenticated."
+    },
+    {
+      "identifier": "RF - 09",
+      "category": "Investor Account and Profile",
+      "description": "The system must maintain an individual account for each registered investor."
+    },
+    {
+      "identifier": "RF - 10",
+      "category": "",
+      "description": "The investor's account must record current balance, initial balance, creation date, last access date, total logins and total logouts."
+    },
+    {
+      "identifier": "RF - 11",
+      "category": "",
+      "description": "The system must allow consultation of the investor's account registration and financial data."
+    },
+    {
+      "identifier": "RF - 12",
+      "category": "",
+      "description": "The system must allow updating the investor profile."
+    },
+    {
+      "identifier": "RF - 13",
+      "category": "",
+      "description": "Updating your profile must include, at a minimum, a password, full name, address, email and registered card."
+    },
+    {
+      "identifier": "RF - 14",
+      "category": "",
+      "description": "The system must require the completion of essential fields to update the profile."
+    },
+    {
+      "identifier": "RF - 15",
+      "category": "",
+      "description": "The system must prevent profile updates when the password and password confirmation are different."
+    },
+    {
+      "identifier": "RF - 16",
+      "category": "Market Consultation and Quotations",
+      "description": "The system must allow consulting of asset quotes based on their codes."
+    },
+    {
+      "identifier": "RF - 17",
+      "category": "",
+      "description": "The system must allow simultaneous consultation of more than one asset."
+    },
+    {
+      "identifier": "RF - 18",
+      "category": "",
+      "description": "For each asset consulted, the system must present information such as company name, traded volume, price range, opening price, current price and variation."
+    },
+    {
+      "identifier": "RF - 19",
+      "category": "",
+      "description": "The system must provide a consolidated summary of the market."
+    },
+    {
+      "identifier": "RF - 20",
+      "category": "",
+      "description": "The consolidated market summary must present, at a minimum, a general performance index, opening index, traded volume, assets with the biggest increases and assets with the biggest drops."
+    },
+    {
+      "identifier": "RF - 21",
+      "category": "",
+      "description": "The system must handle invalid asset codes without interrupting the investor's navigation."
+    },
+    {
+      "identifier": "RF - 22",
+      "category": "Asset Trading",
+      "description": "The system must allow the investor to purchase assets by providing information on the asset code and the desired quantity."
+    },
+    {
+      "identifier": "RF - 23",
+      "category": "",
+      "description": "The system must allow the sale of assets already in the investor's portfolio."
+    },
+    {
+      "identifier": "RF - 24",
+      "category": "",
+      "description": "Every purchase or sale operation must generate an individual trading order."
+    },
+    {
+      "identifier": "RF - 25",
+      "category": "",
+      "description": "Every order must have its own identification, type, quantity, price, opening date, completion date, status and transaction fee."
+    },
+    {
+      "identifier": "RF - 26",
+      "category": "",
+      "description": "The system must apply a fixed operating fee to purchase and sale orders."
+    },
+    {
+      "identifier": "RF - 27",
+      "category": "",
+      "description": "In purchase operations, the system must debit the investor's balance with the value corresponding to the traded asset plus the operation fee."
+    },
+    {
+      "identifier": "RF - 28",
+      "category": "",
+      "description": "In sales operations, the system must credit the investor's balance with the net value of the operation, considering the applicable rate discount."
+    },
+    {
+      "identifier": "RF - 29",
+      "category": "",
+      "description": "The system must allow orders to be processed immediately or later, depending on the operational configuration of the simulation."
+    },
+    {
+      "identifier": "RF - 30",
+      "category": "",
+      "description": "The system must record the progress of the order through business status, including at least the states open, in processing, completed and canceled."
+    },
+    {
+      "identifier": "RF - 31",
+      "category": "",
+      "description": "The system must not allow the same order to be completed repeatedly."
+    },
+    {
+      "identifier": "RF - 32",
+      "category": "",
+      "description": "The system must cancel the sale when the position entered has already been negotiated previously or is no longer available."
+    },
+    {
+      "identifier": "RF - 33",
+      "category": "",
+      "description": "The system must present the investor with confirmation of sending the order for processing."
+    },
+    {
+      "identifier": "RF - 34",
+      "category": "Portfolio and Investor Monitoring",
+      "description": "The system must maintain the investor's portfolio with the positions resulting from purchases made."
+    },
+    {
+      "identifier": "RF - 35",
+      "category": "",
+      "description": "When a purchase order is completed, the system must register the new position in the investor's portfolio."
+    },
+    {
+      "identifier": "RF - 36",
+      "category": "",
+      "description": "When a sell order is completed, the system must remove the corresponding position from the portfolio."
+    },
+    {
+      "identifier": "RF - 37",
+      "category": "",
+      "description": "The system must allow consultation of the investor's portfolio."
+    },
+    {
+      "identifier": "RF - 38",
+      "category": "",
+      "description": "For each position in the portfolio, the system must present, at a minimum, position identification, purchase date, asset, quantity, purchase price, current price, applied value, market value and gain or loss."
+    },
+    {
+      "identifier": "RF - 39",
+      "category": "",
+      "description": "The system must inform when the investor's portfolio is empty."
+    },
+    {
+      "identifier": "RF - 40",
+      "category": "",
+      "description": "The system must allow the sale of a position directly from the portfolio."
+    },
+    {
+      "identifier": "RF - 41",
+      "category": "",
+      "description": "The system must calculate the total amount invested in the portfolio, the current market value and the consolidated gain or loss."
+    },
+    {
+      "identifier": "RF - 42",
+      "category": "",
+      "description": "The system must present the investor with a consolidated summary of their financial position, including cash balance, number of positions, market value of the portfolio and accumulated result in relation to the initial balance."
+    },
+    {
+      "identifier": "RF - 43",
+      "category": "Order History and Alerts",
+      "description": "The system must maintain a history of orders associated with the investor."
+    },
+    {
+      "identifier": "RF - 44",
+      "category": "",
+      "description": "The system should display a summary view of the investor's most recent orders."
+    },
+    {
+      "identifier": "RF - 45",
+      "category": "",
+      "description": "The system must allow expanded consultation of the order history."
+    },
+    {
+      "identifier": "RF - 46",
+      "category": "",
+      "description": "The system must alert the investor about completed orders that have not yet been presented to him."
+    },
+    {
+      "identifier": "RF - 47",
+      "category": "",
+      "description": "The alert presentation must inform, at a minimum, order identification, status, relevant dates, type, asset, quantity and rate applied."
+    },
+    {
+      "identifier": "RF - 48",
+      "category": "Market Information Update",
+      "description": "The system must update the traded volume and market indicators of assets after purchase and sale operations."
+    },
+    {
+      "identifier": "RF - 49",
+      "category": "",
+      "description": "The system must reflect these updates in subsequent quote queries and in the consolidated market summary."
+    },
+    {
+      "identifier": "RF - 50",
+      "category": "Simulation Operational Administration",
+      "description": "The system must allow the configuration of simulation operational parameters."
+    },
+    {
+      "identifier": "RF - 51",
+      "category": "",
+      "description": "Among the operational parameters, the system must allow defining the order processing mode, the maximum number of simulated users, the maximum number of simulated assets and the market summary update interval."
+    },
+    {
+      "identifier": "RF - 52",
+      "category": "",
+      "description": "The system must allow enabling or disabling alerts for completed orders."
+    },
+    {
+      "identifier": "RF - 53",
+      "category": "",
+      "description": "The system must allow preparing or rebuilding the simulation database."
+    },
+    {
+      "identifier": "RF - 54",
+      "category": "",
+      "description": "The system must allow resetting the simulation's operational data."
+    },
+    {
+      "identifier": "RF - 55",
+      "category": "",
+      "description": "When resetting the data, the system must provide summary statistics of the execution, including users, assets, orders, cancellations and existing positions."
+    },
+    {
+      "identifier": "RNF - 56",
+      "category": "Security and Access Control",
+      "description": "The system must require prior authentication to access the investor's restricted resources."
+    },
+    {
+      "identifier": "RNF - 57",
+      "category": "",
+      "description": "The system must ensure that the operations executed during the session are associated with the authenticated investor."
+    },
+    {
+      "identifier": "RNF - 58",
+      "category": "",
+      "description": "The system must properly terminate the investor's session upon logout, reducing the risk of subsequent misuse."
+    },
+    {
+      "identifier": "RNF - 59",
+      "category": "Reliability and Business Integrity",
+      "description": "The system must preserve consistency between balance, orders, quotes and portfolio after each operation."
+    },
+    {
+      "identifier": "RNF - 60",
+      "category": "",
+      "description": "The system must maintain minimum traceability of the order life cycle through identification, dates and status."
+    },
+    {
+      "identifier": "RNF - 61",
+      "category": "",
+      "description": "The system must handle processing failures without compromising the integrity of investor data."
+    },
+    {
+      "identifier": "RNF - 62",
+      "category": "",
+      "description": "The system must prevent, whenever possible, duplication of conclusions or improper reuse of orders and positions."
+    },
+    {
+      "identifier": "RNF - 63",
+      "category": "Performance and Operational Capability",
+      "description": "The system must support immediate or subsequent processing of orders, in order to meet different operational strategies of the simulation."
+    },
+    {
+      "identifier": "RNF - 64",
+      "category": "",
+      "description": "The system must allow the use of configurable updating of the market summary to balance information timeliness and operational cost."
+    },
+    {
+      "identifier": "RNF - 65",
+      "category": "",
+      "description": "The system must support operation with high volumes of users, assets and simulated orders."
+    },
+    {
+      "identifier": "RNF - 66",
+      "category": "Usability and User Experience",
+      "description": "The system must present business information to the investor in a clear, objective and organized manner by context of use."
+    },
+    {
+      "identifier": "RNF - 67",
+      "category": "",
+      "description": "The system must offer understandable messages for situations such as login failure, registration error, password mismatch, missing mandatory data and invalid operations."
+    },
+    {
+      "identifier": "RNF - 68",
+      "category": "",
+      "description": "The system must allow simple navigation between the main views of home, account, portfolio, quotes, orders and market summary."
+    },
+    {
+      "identifier": "RNF - 69",
+      "category": "Operation and Administration",
+      "description": "The system must provide administrative mechanisms for preparation, configuration and controlled restart of the simulation environment."
+    },
+    {
+      "identifier": "RNF - 70",
+      "category": "",
+      "description": "The system must provide summary execution indicators to support operational monitoring of the simulation."
+    }
+  ]
+}

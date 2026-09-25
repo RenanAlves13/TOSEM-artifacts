@@ -1,0 +1,6 @@
+microservice_name,responsibility,communicates_with
+Authentication Service,"Manages librarian registration, password validation, and authentication for system access.",
+Book Catalog Service,"Manages the book catalog, including registration, search, listing, and deletion of books, ensuring no duplicates and handling deletion of associated loans.",
+Reader Management Service,"Manages reader registration, search, listing, and deletion, ensuring no duplicates and handling deletion of associated loans.",
+Loan Management Service,"Manages book loans, enforcing loan eligibility rules, recording loan dates, and supporting multiple loans per reader.",Book Catalog Service;Reader Management Service
+Auxiliary Demonstrative Functions Service,"Provides mathematical utilities (sum, Fibonacci, Ackermann) and a service catalog for endpoint testing and demonstration purposes.",

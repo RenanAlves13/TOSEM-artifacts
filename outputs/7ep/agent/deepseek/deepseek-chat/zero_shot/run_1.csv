@@ -1,0 +1,6 @@
+microservice_name,responsibility,communicates_with
+Authentication Service,"Handle librarian registration and authentication, enforcing unique usernames and strong passwords.",
+Library Management Service,"Manage books and readers, including registration, deletion, and associated loan cleanup to maintain data integrity.",Loan Management Service
+Loan Management Service,"Register and manage book loans, enforcing availability and reader eligibility, and handle loan cleanup when books or readers are deleted.",Library Management Service
+Catalog and Query Service,"Provide listing and search capabilities for books and readers, including availability queries.",
+System Administration Service,"Provide service catalog, mathematical demonstrations, and demo environment administration including database reset and recreation.",

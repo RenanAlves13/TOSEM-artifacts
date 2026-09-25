@@ -1,3 +1,0 @@
-class Superclass implements SubSubInterface{
-
-}

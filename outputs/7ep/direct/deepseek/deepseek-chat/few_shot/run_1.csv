@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+Authentication Service,"Manages librarian registration, login, and credential validation.",Library Service
+Library Service,"Manages books, readers, and loans, including registration, deletion, search, and loan operations.",Authentication Service
+Mathematics Service,"Provides demonstration mathematical functions such as integer addition, Fibonacci, and Ackermann calculations.",

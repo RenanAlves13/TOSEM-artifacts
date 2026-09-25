@@ -1,0 +1,7 @@
+microservice_name,responsibility,communicates_with
+Investor Account Service,"Manages investor registration, authentication, profile updates, and account financial data including balance and access statistics.",Trading Service;Portfolio Service
+Market Data Service,"Provides asset quotes, market summaries, and updates market indicators after trades.",Trading Service
+Trading Service,"Handles order placement, processing, status tracking, and trade execution while maintaining consistency with balances and positions.",Investor Account Service;Market Data Service;Portfolio Service
+Portfolio Service,"Maintains investor positions, calculates portfolio valuations, and supports portfolio queries and direct sales.",Trading Service;Investor Account Service
+Order History Service,Maintains order history and generates alerts for completed orders not yet presented to the investor.,Trading Service
+Administration Service,"Handles simulation configuration, database preparation/reset, and operational monitoring statistics.",Investor Account Service;Market Data Service;Trading Service;Portfolio Service

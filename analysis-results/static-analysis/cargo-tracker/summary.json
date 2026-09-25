@@ -1,7 +1,7 @@
 {
   "project": "cargo-tracker",
   "project_path": "systems/cargo-tracker",
-  "generated_at_utc": "2026-06-25T17:58:12.461505+00:00",
+  "generated_at_utc": "2026-08-25T23:25:18.933739+00:00",
   "methodology": {
     "type": "source-static-analysis",
     "notes": [
@@ -14,17 +14,34 @@
   ],
   "counts": {
     "build_files": 1,
+    "declared_submodules": 0,
+    "modules_with_parse_errors": 0,
     "source_roots": 2,
     "java_files": 109,
+    "java_descriptor_files": 0,
     "analyzed_type_files": 109,
     "packages": 28,
+    "package_roots": 2,
     "classes": 109,
     "entrypoints": 5,
     "main_classes": 0,
     "test_classes": 0,
     "ui_test_classes": 0,
+    "methods": 617,
+    "public_methods": 551,
+    "source_lines": 8757,
+    "effective_source_lines": 6343,
+    "imports": 997,
+    "internal_imports": 355,
+    "external_imports": 642,
     "internal_package_dependencies": 110,
-    "external_package_dependencies": 203
+    "external_package_dependencies": 203,
+    "package_dependency_edges": 313,
+    "internal_package_dependency_occurrences": 354,
+    "external_package_dependency_occurrences": 642,
+    "external_dependency_roots": 30,
+    "inferred_roles": 6,
+    "type_kinds": 4
   },
   "role_counts": {
     "controller": 16,
@@ -33,6 +50,12 @@
     "other": 30,
     "persistence": 4,
     "service": 17
+  },
+  "type_kind_counts": {
+    "class": 95,
+    "enum": 2,
+    "interface": 11,
+    "unknown": 1
   },
   "source_roots": [
     "systems/cargo-tracker/src/main/java/net/java",

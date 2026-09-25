@@ -1,7 +1,7 @@
 {
   "project": "7ep",
   "project_path": "systems/7ep",
-  "generated_at_utc": "2026-06-25T17:58:12.104236+00:00",
+  "generated_at_utc": "2026-08-25T23:25:16.928059+00:00",
   "methodology": {
     "type": "source-static-analysis",
     "notes": [
@@ -14,17 +14,34 @@
   ],
   "counts": {
     "build_files": 3,
+    "declared_submodules": 0,
+    "modules_with_parse_errors": 0,
     "source_roots": 8,
     "java_files": 119,
+    "java_descriptor_files": 10,
     "analyzed_type_files": 109,
     "packages": 14,
+    "package_roots": 1,
     "classes": 109,
     "entrypoints": 14,
     "main_classes": 53,
     "test_classes": 42,
     "ui_test_classes": 3,
+    "methods": 670,
+    "public_methods": 543,
+    "source_lines": 17045,
+    "effective_source_lines": 7826,
+    "imports": 677,
+    "internal_imports": 112,
+    "external_imports": 565,
     "internal_package_dependencies": 13,
-    "external_package_dependencies": 148
+    "external_package_dependencies": 148,
+    "package_dependency_edges": 161,
+    "internal_package_dependency_occurrences": 111,
+    "external_package_dependency_occurrences": 565,
+    "external_dependency_roots": 41,
+    "inferred_roles": 6,
+    "type_kinds": 3
   },
   "role_counts": {
     "controller": 12,
@@ -33,6 +50,11 @@
     "persistence": 8,
     "test": 45,
     "utility": 4
+  },
+  "type_kind_counts": {
+    "class": 101,
+    "enum": 4,
+    "interface": 4
   },
   "source_roots": [
     "systems/7ep/demo/desktop_app/src/main/java",

@@ -25,6 +25,7 @@ from uuid import uuid4
 from src.comparison.evaluate import discover_run_descriptors
 from src.config import AppConfig, load_app_config
 from src.project_loader import ProjectContext, discover_projects
+from src.requirement_translations import load_english_requirements
 from src.requirements_loader import RequirementsData, load_requirements
 from src.static_analysis_loader import StaticAnalysisData, load_static_analysis, read_text
 
@@ -184,9 +185,13 @@ def load_project_snapshot(
     context = projects.get(project_name)
     if context is None:
         raise ValueError(f"Project '{project_name}' is not available in systems/.")
+    source_requirements = load_requirements(context.requirements_csv)
     return ProjectSnapshot(
         context=context,
-        requirements=load_requirements(context.requirements_csv),
+        requirements=load_english_requirements(
+            source_requirements,
+            project_name=context.name,
+        ),
         static_analysis=load_static_analysis(
             context.static_analysis_dir,
             context.static_analysis_files,

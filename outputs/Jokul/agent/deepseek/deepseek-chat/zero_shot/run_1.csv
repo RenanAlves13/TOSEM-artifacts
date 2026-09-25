@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+User Service,"Manages user registration, authentication, session identity, and role-based access control. Ensures unique usernames and provides user data for authorization decisions.",
+Catalog Query Service,"Provides read-oriented catalog discovery: paginated movie listings, movie details lookup, and category-based browsing. Ensures access to nonexistent movies is prevented.",
+Catalog Administration Service,"Handles write-oriented catalog administration: movie registration with required metadata, deletion, batch deletion, duplicate-title enforcement, and category management. Ensures deletion of nonexistent movies is prevented.",Media Service
+Media Service,"Handles video file upload, storage, and delivery. Ensures video files are available for playback and download, retrieving them from the configured local repository when necessary. Supports large file uploads and MP4 format.",

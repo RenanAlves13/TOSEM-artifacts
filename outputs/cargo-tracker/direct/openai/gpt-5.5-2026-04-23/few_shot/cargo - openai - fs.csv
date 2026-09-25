@@ -1,0 +1,3 @@
+microservice_name,responsibility,communicates_with
+Cargo Operations Service,"Manages the cargo lifecycle, including cargo registration, tracking identifier assignment, origin/destination rules, deadline constraints, route assignment, destination changes, operational status recalculation, handling event registration, event history, out-of-route detection, administrative cargo views, and cargo tracking queries.",Routing Service
+Routing Service,"Provides logistics network and route-planning capabilities, including candidate route calculation based on origin, destination, deadlines, voyage legs, and logistics locations.",Cargo Operations Service

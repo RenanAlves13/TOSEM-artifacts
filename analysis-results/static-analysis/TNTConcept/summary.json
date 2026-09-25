@@ -1,7 +1,7 @@
 {
   "project": "TNTConcept",
   "project_path": "systems/TNTConcept",
-  "generated_at_utc": "2026-06-25T17:58:15.782739+00:00",
+  "generated_at_utc": "2026-08-25T23:25:33.029212+00:00",
   "methodology": {
     "type": "source-static-analysis",
     "notes": [
@@ -14,17 +14,34 @@
   ],
   "counts": {
     "build_files": 3,
+    "declared_submodules": 2,
+    "modules_with_parse_errors": 0,
     "source_roots": 4,
     "java_files": 660,
+    "java_descriptor_files": 0,
     "analyzed_type_files": 660,
     "packages": 72,
+    "package_roots": 3,
     "classes": 660,
     "entrypoints": 0,
     "main_classes": 535,
     "test_classes": 125,
     "ui_test_classes": 0,
+    "methods": 15401,
+    "public_methods": 14345,
+    "source_lines": 159735,
+    "effective_source_lines": 97785,
+    "imports": 5814,
+    "internal_imports": 2691,
+    "external_imports": 3123,
     "internal_package_dependencies": 356,
-    "external_package_dependencies": 575
+    "external_package_dependencies": 575,
+    "package_dependency_edges": 931,
+    "internal_package_dependency_occurrences": 2690,
+    "external_package_dependency_occurrences": 3123,
+    "external_dependency_roots": 64,
+    "inferred_roles": 7,
+    "type_kinds": 4
   },
   "role_counts": {
     "controller": 6,
@@ -34,6 +51,12 @@
     "repository": 137,
     "test": 125,
     "utility": 18
+  },
+  "type_kind_counts": {
+    "class": 622,
+    "enum": 23,
+    "interface": 14,
+    "unknown": 1
   },
   "source_roots": [
     "systems/TNTConcept/TNTConcept/tntconcept-core/src/main/java",

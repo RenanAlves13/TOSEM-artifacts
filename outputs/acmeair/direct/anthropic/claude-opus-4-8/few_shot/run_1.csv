@@ -1,0 +1,6 @@
+microservice_name,responsibility,communicates_with
+Authentication Service,"Handles customer login, logout, session creation, session validation, and session expiration for restricted areas.",Customer Service;Booking Service;Flight Service
+Customer Service,"Manages customer profiles, contact details, address, password confirmation for updates, and loyalty program information (miles and status) presented as query data.",Authentication Service;Booking Service
+Flight Service,"Manages the registered airports and flight/segment inventory, and provides flight search by origin, destination, date for one-way and round-trip journeys.",Booking Service
+Booking Service,"Handles reservation creation for outbound and round-trip flights, reservation identifiers and dates, consultation of existing reservations, and cancellation.",Customer Service;Flight Service;Authentication Service
+Environment Loader Service,"Performs initial database loading/reloading, generates sample customers, flights, sessions and test bookings, and provides summary operating indicators for monitoring the environment.",Customer Service;Flight Service;Booking Service;Authentication Service

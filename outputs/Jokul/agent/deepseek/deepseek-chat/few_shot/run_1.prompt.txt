@@ -1,0 +1,147 @@
+PROMPT TEMPLATE: few_shot
+
+=== SYSTEM PROMPT ===
+Structured multi-agent workflow: domain analyst, structural analyst, architect, critic, and refiner. Exact prompts and intermediate outputs are in the trace JSONL.
+
+=== USER PROMPT ===
+Project name: Jokul
+
+System requirements:
+- Source: reviewed English translation of the project requirements CSV
+- Columns: Category, Identifier, Description
+- Total requirement rows: 62
+- Top requirement categories: Catalog administration (8); Access and user roles (7); Categories and content discovery (5); Movie catalog (5); Observed business rules and constraints (5); Integrity and reliability (4); Media and storage (4); Movie details lookup (4); Playback and access to movie files (4); User experience (4)
+- Representative requirement rows:
+  - [RF - 01] | category=Access and user roles | The system must allow users to register with a username and password.
+  - [RF - 02] | category=Access and user roles | The system must allow registered users to log in.
+  - [RF - 03] | category=Access and user roles | The system must distinguish at least two user roles: regular user and administrator.
+  - [RF - 04] | category=Access and user roles | The system must deny access when the user does not exist, the password is incorrect, or the stated role does not match the registration.
+  - [RF - 05] | category=Access and user roles | The system must retain the identity of the logged-in user while the user navigates in the browser.
+  - [RF - 06] | category=Access and user roles | The system must display the resource-management area only to users identified as administrators.
+  - [RF - 07] | category=Access and user roles | The system must allow a user to end the session.
+  - [RF - 08] | category=Movie catalog | The system must display a home page listing the available movies.
+  - [RF - 09] | category=Movie catalog | Each listed movie must display, at a minimum, its title, poster, and rating.
+  - [RF - 10] | category=Movie catalog | The system must organize the movie listing into pages.
+  - [RF - 11] | category=Movie catalog | The system must allow the total number of registered movies to be retrieved to support paginated navigation.
+  - [RF - 12] | category=Movie catalog | The system must allow a movie-details page to be opened from the listing.
+  - [RF - 13] | category=Movie details lookup | The system must provide a details page for each movie.
+  - [RF - 14] | category=Movie details lookup | The details page must display, at a minimum, the title, rating, alternate title, release date, duration, director, screenplay, cast, synopsis, poster, and categories.
+  - [RF - 15] | category=Movie details lookup | The system must allow the complete cast of a movie to be viewed.
+  - [RF - 16] | category=Movie details lookup | The system must prevent access to the details of nonexistent movies and return an appropriate error message.
+  - [RF - 17] | category=Categories and content discovery | The system must provide a browsing area organized by movie categories.
+  - [RF - 18] | category=Categories and content discovery | The system must allow all registered categories to be viewed.
+  - [RF - 19] | category=Categories and content discovery | The system must allow only the movies belonging to a selected category to be listed.
+  - [RF - 20] | category=Categories and content discovery | A movie must be able to belong to more than one category.
+  - [RF - 21] | category=Categories and content discovery | The system must allow users to return from a category view to the overall catalog view.
+  - [RF - 22] | category=Playback and access to movie files | The system must allow movie playback to be started from its details page.
+  - [RF - 23] | category=Playback and access to movie files | The system must provide a download link for the movie file when the resource is ready for use.
+  - [RF - 24] | category=Playback and access to movie files | Before playback, the system must ensure that the video file is available in the application area used to deliver content.
+  - [RF - 25] | category=Playback and access to movie files | If the file is not yet available in that delivery area, the system must attempt to obtain it from the configured local repository.
+  - [RF - 26] | category=Catalog administration | An administrator must be able to register a new movie in the catalog.
+  - [RF - 27] | category=Catalog administration | Movie registration must include, at a minimum, the title, rating, alternate title, release date, duration, director, screenplay, cast, categories, synopsis, and poster.
+  - [RF - 28] | category=Catalog administration | The system must prevent duplicate registration of movies with the same title.
+  - [RF - 29] | category=Catalog administration | An administrator must be able to upload a movie video file to the application.
+  - [RF - 30] | category=Catalog administration | An administrator must be able to delete a movie from the catalog.
+  - [RF - 31] | category=Catalog administration | The system must allow more than one movie to be deleted in a batch.
+  - [RF - 32] | category=Catalog administration | Before a batch deletion, the system must inform the administrator which movies have been selected.
+  - [RF - 33] | category=Catalog administration | The system must prevent the deletion of nonexistent movies.
+  - [RF - 34] | category=Registration consistency rules | The system must prevent duplicate registration of users with the same username.
+  - [RF - 35] | category=Registration consistency rules | A movie title must be treated as the unique identifier for catalog registration.
+  - [RF - 36] | category=Registration consistency rules | The standard playback process assumes that the physical movie file corresponds to the registered title.
+  - [RNF - 37] | category=User experience | The application must be accessible through a web interface.
+  - [RNF - 38] | category=User experience | Catalog navigation must be simple and straightforward, with visible access to the home page, categories, details, and playback.
+  - [RNF - 39] | category=User experience | The application must present clear success, warning, and failure messages for key operations, including login, registration, addition, deletion, upload, and playback.
+  - [RNF - 40] | category=User experience | The catalog must be displayed in pages of up to 12 movies to promote visual organization and perceived performance.
+  - [RNF - 41] | category=Integrity and reliability | The system must maintain a consistent response format for operations, indicating status, message, and returned data.
+  - [RNF - 42] | category=Integrity and reliability | User, movie, and category information must be persistently stored.
+  - [RNF - 43] | category=Integrity and reliability | The system must preserve the uniqueness of users and movies to prevent duplicates in the catalog and access records.
+  - [RNF - 44] | category=Integrity and reliability | Whenever possible, error handling must return controlled messages to the user.
+  - [RNF - 45] | category=Security and access control | The system must operate with separate roles for regular users and administrators.
+  - [RNF - 46] | category=Security and access control | Catalog-management functions must be restricted to the administrator role.
+  - [RNF - 47] | category=Security and access control | The user's session must remain identified in the browser until the user logs out or clears local data.
+  - [RNF - 48] | category=Media and storage | The system must support uploads of large video files, up to 2 GB per file.
+  - [RNF - 49] | category=Media and storage | The application's operating process must treat MP4 as the standard video format.
+  - [RNF - 50] | category=Media and storage | The application environment must provide a local area to temporarily store or serve the video files used for playback.
+  - [RNF - 51] | category=Media and storage | The application environment must provide a configured local repository from which movies can be loaded on demand.
+  - [RNF - 52] | category=Operational integration and architecture | The solution must allow the user interface and the application services to evolve independently.
+  - [RNF - 53] | category=Operational integration and architecture | The user interface must be able to consume the application services even when it is deployed in a different environment.
+  - [RNF - 54] | category=Operational integration and architecture | User, movie, and category data must be stored in a structured database that supports the catalog relationships.
+  - [RNF - 55] | category=Observed business rules and constraints | The system uses two types of users: regular users and administrators.
+  - [RNF - 56] | category=Observed business rules and constraints | A movie can have multiple associated categories.
+  - [RNF - 57] | category=Observed business rules and constraints | Uploading the video file and registering the movie are related but independent steps.
+  - [RNF - 58] | category=Observed business rules and constraints | Automatic playback depends on the existence of an MP4 file corresponding to the registered title.
+  - [RNF - 59] | category=Observed business rules and constraints | The source movie filename must follow the pattern expected by the environment configuration for automatic loading to work.
+  - [RNF - 60] | category=Observations on the current codebase | The intention to restrict resource management to administrators is clear in the interface, but this restriction is not fully validated in the backend.
+  - [RNF - 61] | category=Observations on the current codebase | The current system is oriented more toward a local movie catalog than toward remote storage or an external streaming service.
+  - [RNF - 62] | category=Observations on the current codebase | Availability for playback depends on both movie registration and the existence of the corresponding physical file.
+
+Static analysis evidence:
+- Source directory: analysis-results/static-analysis/Jokul
+- Static analysis files found: 6
+- Summary file: analysis-results/static-analysis/Jokul/summary.json
+- Summary counts: build_files=1, declared_submodules=0, modules_with_parse_errors=0, source_roots=2, java_files=28, java_descriptor_files=0, analyzed_type_files=28, packages=12, package_roots=1, classes=28, entrypoints=5, main_classes=25, test_classes=3, ui_test_classes=0, methods=119, public_methods=115, source_lines=1556, effective_source_lines=967, imports=169, internal_imports=45, external_imports=124, internal_package_dependencies=19, external_package_dependencies=60, package_dependency_edges=79, internal_package_dependency_occurrences=45, external_package_dependency_occurrences=124, external_dependency_roots=22, inferred_roles=10, type_kinds=3
+- Build tools: maven
+- Role counts: aspect=1, bootstrap=1, configuration=1, controller=4, domain=4, exception=4, other=6, service=2, test=3, utility=2
+- Package roots: io.innofang.jokul (12)
+- Top internal package dependencies:
+  - io.innofang.jokul.controller -> io.innofang.jokul.domain (count=9)
+  - io.innofang.jokul.repositories -> io.innofang.jokul.domain (count=6)
+  - io.innofang.jokul.controller -> io.innofang.jokul.repositories (count=5)
+  - io.innofang.jokul.controller -> io.innofang.jokul.enums (count=4)
+  - io.innofang.jokul.controller -> io.innofang.jokul.utils (count=4)
+  - io.innofang.jokul.exception -> io.innofang.jokul.enums (count=2)
+  - io.innofang.jokul.services -> io.innofang.jokul.exception (count=2)
+  - io.innofang.jokul.utils -> io.innofang.jokul.domain (count=2)
+  - io.innofang.jokul -> io.innofang.jokul.services (count=1)
+  - io.innofang.jokul.controller -> io.innofang.jokul.exception (count=1)
+  - io.innofang.jokul.controller -> io.innofang.jokul.properties (count=1)
+  - io.innofang.jokul.controller -> io.innofang.jokul.services (count=1)
+  - io.innofang.jokul.domain -> io.innofang.jokul.utils (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.domain (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.enums (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.exception (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.utils (count=1)
+  - io.innofang.jokul.services -> io.innofang.jokul.properties (count=1)
+  - io.innofang.jokul.utils -> io.innofang.jokul.enums (count=1)
+- Frequent external dependencies: org.springframework.web (20); java.util (15); org.springframework.boot (10); org.springframework.data (10); org.springframework.beans (8); java.io (8); org.junit (8); javax.persistence (6); com.fasterxml.jackson (5); org.springframework.test (5); org.slf4j (4); org.springframework.core (4); java.nio (4); org.springframework.context (3); org.springframework.stereotype (3); org.junit.runner (3); org.aspectj.lang (2); org.springframework.http (2); javax.servlet (1); org.hibernate.annotations (1)
+- Detected modules/build files:
+  - module=jokul/jokul-server, tool=maven, artifact=knock-knock, packaging=jar, java=1.8
+- Top packages by structural weight:
+  - io.innofang.jokul.controller: classes=5, methods=8, roles=controller:4|test:1, incoming_internal=0, outgoing_internal=25
+  - io.innofang.jokul.repositories: classes=5, methods=4, roles=other:3|test:2, incoming_internal=5, outgoing_internal=6
+  - io.innofang.jokul.domain: classes=4, methods=54, roles=domain:4, incoming_internal=18, outgoing_internal=1
+  - io.innofang.jokul.exception: classes=4, methods=20, roles=exception:4, incoming_internal=4, outgoing_internal=2
+  - io.innofang.jokul.services: classes=2, methods=9, roles=service:2, incoming_internal=2, outgoing_internal=3
+  - io.innofang.jokul.utils: classes=2, methods=5, roles=utility:2, incoming_internal=6, outgoing_internal=3
+  - io.innofang.jokul: classes=1, methods=2, roles=bootstrap:1, incoming_internal=0, outgoing_internal=1
+  - io.innofang.jokul.aspect: classes=1, methods=4, roles=aspect:1, incoming_internal=0, outgoing_internal=0
+  - io.innofang.jokul.config: classes=1, methods=2, roles=configuration:1, incoming_internal=0, outgoing_internal=0
+  - io.innofang.jokul.enums: classes=1, methods=5, roles=other:1, incoming_internal=8, outgoing_internal=0
+  - io.innofang.jokul.handle: classes=1, methods=1, roles=other:1, incoming_internal=0, outgoing_internal=4
+  - io.innofang.jokul.properties: classes=1, methods=5, roles=other:1, incoming_internal=2, outgoing_internal=0
+- Internal dependency edges:
+  - io.innofang.jokul.controller -> io.innofang.jokul.domain (count=9)
+  - io.innofang.jokul.repositories -> io.innofang.jokul.domain (count=6)
+  - io.innofang.jokul.controller -> io.innofang.jokul.repositories (count=5)
+  - io.innofang.jokul.controller -> io.innofang.jokul.enums (count=4)
+  - io.innofang.jokul.controller -> io.innofang.jokul.utils (count=4)
+  - io.innofang.jokul.exception -> io.innofang.jokul.enums (count=2)
+  - io.innofang.jokul.services -> io.innofang.jokul.exception (count=2)
+  - io.innofang.jokul.utils -> io.innofang.jokul.domain (count=2)
+  - io.innofang.jokul -> io.innofang.jokul.services (count=1)
+  - io.innofang.jokul.controller -> io.innofang.jokul.exception (count=1)
+  - io.innofang.jokul.controller -> io.innofang.jokul.properties (count=1)
+  - io.innofang.jokul.controller -> io.innofang.jokul.services (count=1)
+  - io.innofang.jokul.domain -> io.innofang.jokul.utils (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.domain (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.enums (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.exception (count=1)
+  - io.innofang.jokul.handle -> io.innofang.jokul.utils (count=1)
+  - io.innofang.jokul.services -> io.innofang.jokul.properties (count=1)
+  - io.innofang.jokul.utils -> io.innofang.jokul.enums (count=1)
+- Entrypoints detected in code:
+  - Application (io.innofang.jokul) reasons=main-method|application-bootstrap
+  - MovieController (io.innofang.jokul.controller) reasons=http-entrypoint
+  - MovieUploadController (io.innofang.jokul.controller) reasons=http-entrypoint
+  - TypeController (io.innofang.jokul.controller) reasons=http-entrypoint
+  - UserController (io.innofang.jokul.controller) reasons=http-entrypoint

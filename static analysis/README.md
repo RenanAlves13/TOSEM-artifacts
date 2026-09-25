@@ -37,6 +37,24 @@ sobrescreve os artefatos em `analysis-results/static-analysis/`.
 O campo de arquivos de build representa `pom.xml` e `build.gradle` detectados. Ele é
 uma indicação de módulos de build, não uma contagem garantida de módulos de negócio.
 
+## Totais por projeto
+
+`summary.json` contém um objeto `counts` com totais que alimentam tanto o backend
+quanto a tela **Projetos e análise estática**. Além de arquivos de build, classes,
+pacotes, entrypoints e arestas entre pacotes, ele registra quando disponível:
+
+- submódulos declarados, raízes de código-fonte e arquivos Java;
+- tipos analisados, classes de produção/teste/UI test, métodos e métodos públicos;
+- linhas de fonte e linhas efetivas (sem linhas vazias ou comentários);
+- imports internos/externos, arestas distintas entre pacotes e a soma de seus pesos;
+- quantidade de papéis inferidos, tipos de declaração e raízes externas de dependência.
+
+As arestas são pares distintos `pacote de origem → pacote de destino`; o peso é a
+quantidade de declarações `import` que geraram aquela aresta. Nenhum dos dois mede
+chamadas ou tráfego em runtime. Listas de destaques no `summary.json` são limitadas a
+10 raízes de pacote, 25 arestas internas e 20 raízes externas; os totais permanecem
+disponíveis em `counts` mesmo quando a lista é recortada.
+
 ## Artefatos consolidados
 
 - `analysis-results/static-analysis/index.json`

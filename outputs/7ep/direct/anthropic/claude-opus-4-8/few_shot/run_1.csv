@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+Authentication Service,"Manages librarian registration and login, including username uniqueness, secure password handling and strength validation, and access control decisions.",Library Service;Demo Environment Service
+Library Service,"Handles the core library domain: registering and deleting books and readers, consulting collections and readers, recording book loans, enforcing loan consistency rules, and cascading deletion of linked loans.",Authentication Service;Demo Environment Service
+Demo Environment Service,"Provides administration of the demo/test environment: cleaning and recreating the database structure and restoring the environment to a clean, repeatable state for testing and demonstrations.",Library Service;Authentication Service
+Mathematics Service,"Offers auxiliary demonstrative math endpoints such as integer addition, Fibonacci and Ackermann calculations with multiple approaches, and input format validation errors.",

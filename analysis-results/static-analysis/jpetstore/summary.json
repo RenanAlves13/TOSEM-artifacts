@@ -1,7 +1,7 @@
 {
   "project": "jpetstore",
   "project_path": "systems/jpetstore",
-  "generated_at_utc": "2026-06-25T17:58:13.311041+00:00",
+  "generated_at_utc": "2026-08-25T23:25:22.006917+00:00",
   "methodology": {
     "type": "source-static-analysis",
     "notes": [
@@ -14,17 +14,34 @@
   ],
   "counts": {
     "build_files": 1,
+    "declared_submodules": 0,
+    "modules_with_parse_errors": 0,
     "source_roots": 3,
     "java_files": 43,
+    "java_descriptor_files": 0,
     "analyzed_type_files": 43,
     "packages": 6,
+    "package_roots": 1,
     "classes": 43,
     "entrypoints": 1,
     "main_classes": 24,
     "test_classes": 18,
     "ui_test_classes": 0,
+    "methods": 366,
+    "public_methods": 270,
+    "source_lines": 5381,
+    "effective_source_lines": 3141,
+    "imports": 308,
+    "internal_imports": 61,
+    "external_imports": 247,
     "internal_package_dependencies": 5,
-    "external_package_dependencies": 60
+    "external_package_dependencies": 60,
+    "package_dependency_edges": 65,
+    "internal_package_dependency_occurrences": 61,
+    "external_package_dependency_occurrences": 247,
+    "external_dependency_roots": 24,
+    "inferred_roles": 5,
+    "type_kinds": 2
   },
   "role_counts": {
     "controller": 5,
@@ -32,6 +49,10 @@
     "other": 8,
     "service": 3,
     "test": 18
+  },
+  "type_kind_counts": {
+    "class": 36,
+    "interface": 7
   },
   "source_roots": [
     "C:/Users/Renanzin/arquitecture generation tool/systems/jpetstore/jpetstore-6/.mvn/wrapper",

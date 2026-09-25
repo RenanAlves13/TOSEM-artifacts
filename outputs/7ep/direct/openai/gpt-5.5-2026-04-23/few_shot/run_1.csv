@@ -1,0 +1,5 @@
+microservice_name,responsibility,communicates_with
+Librarian Authentication Service,"Manages librarian registration, credential validation, password strength enforcement, protected password handling, and login decisions.",Library Circulation Service;Demo Environment Administration Service
+Library Circulation Service,"Manages books, readers, loans, availability, search and listing operations, and consistency rules between books, readers, and active loans.",Librarian Authentication Service;Demo Environment Administration Service
+Mathematics Demonstration Service,"Provides auxiliary demonstration endpoints for integer addition, Fibonacci calculations, Ackermann calculations, and validation of mathematical inputs.",
+Demo Environment Administration Service,"Supports demonstration and test operations for cleaning, recreating, and restoring the data environment in a predictable state.",Librarian Authentication Service;Library Circulation Service

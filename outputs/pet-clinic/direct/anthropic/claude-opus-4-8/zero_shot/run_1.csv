@@ -1,0 +1,4 @@
+microservice_name,responsibility,communicates_with
+Owner Service,"Manages tutors/guardians (registration, updates, search with pagination), their pets/animals (types, birth date validation, uniqueness per owner), and visit records associated with each animal and owner history. Corresponds to the cohesive owner domain (owner, pet, visit) in the codebase.",Vet Service
+Vet Service,"Manages veterinarians and their specialties, exposes a paginated and structured (API) list of vets for external consumption, automatically assigns visits to the least-loaded veterinarian, and periodically recalculates workload ignoring past visits.",Owner Service
+System Web Service,"Provides the home/welcome page, navigation entry points, internationalization support, static resource handling, and error/crash pages for known and unexpected failures.",Owner Service;Vet Service

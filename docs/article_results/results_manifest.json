@@ -1,0 +1,28 @@
+{
+  "source_files": {
+    "static_project_summaries": "analysis-results/static-analysis/project_summaries.csv",
+    "generation_metadata": "outputs/metadata.csv",
+    "generation_outputs": "outputs/",
+    "calculation_module": "src/comparison/evaluate.py"
+  },
+  "counts": {
+    "static_projects": 8,
+    "discovered_runs": 48,
+    "calculable_architectures": 48,
+    "valid_direct_architectures": 48,
+    "process_rows": 48,
+    "comparison_issue_rows": 42,
+    "metadata_path_recoveries": 4
+  },
+  "artifact_reconciliation": {
+    "performed_in_memory_only": true,
+    "rule": "For a latest-successful metadata row whose selected CSV path is missing, use a CSV only when the same condition folder contains exactly one CSV artifact.",
+    "log": "data/reconciliation_log.csv"
+  },
+  "interpretation": {
+    "scope": "This article-results bundle intentionally includes direct-generation runs only.",
+    "stability": "One run per condition prevents within-condition stability estimation.",
+    "human_review": "No human-evaluation data are included in this replication package.",
+    "statistics": "All article summaries are descriptive; no hypothesis tests are computed."
+  }
+}
